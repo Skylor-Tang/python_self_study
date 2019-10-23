@@ -1,0 +1,2649 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{1-4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} 函数和类也是对象，是一等公民，使得其可以}
+         \PY{c+c1}{\PYZsh{} 1. 赋值给一个变量}
+         \PY{c+c1}{\PYZsh{} 2. 可以添加到集合对象中}
+         \PY{c+c1}{\PYZsh{} 3. 可以作为参数传递给函数                }
+         \PY{c+c1}{\PYZsh{} 4. 可以当做函数的返回值 }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} python中一切皆对象的设计的原因  所有的类都是type的实例，type创建了一切对象，包括类、函数等等，所以能够一切皆对象，}
+        \PY{c+c1}{\PYZsh{} 所以在Python中一切包括类、函数等都是可以修改的}
+        \PY{c+c1}{\PYZsh{} 包括基类object都是type的实例对象，type是自己的实例对象，}
+        \PY{n+nb}{type}\PY{p}{(}\PY{n+nb}{type}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} type
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} 之后所有的类都继承自object这个基类，包括type也是继承自object类，这导致了python中一切类都是继承自object这一个基类}
+        \PY{n+nb}{type}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}bases\PYZus{}\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} (object,)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} 以上就是python中一切皆对象的原因}
+\end{Verbatim}
+
+
+    \begin{figure}
+\centering
+\includegraphics{C:/Users/tmj/Desktop/测试图片.jpg}
+\caption{title}
+\end{figure}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} 2\PYZhy{}3 Python的内置类型}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} None全局只有唯一的一个，所有的None都指向同一个内存地址        题外话：NoneType类型的意义是指某个对象没有类型 其值为None}
+         \PY{n}{a} \PY{o}{=} \PY{k+kc}{None}
+         \PY{n}{b} \PY{o}{=} \PY{k+kc}{None} 
+         \PY{n+nb}{id}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{o}{==}\PY{n+nb}{id}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{} 题外话：NoneType类型的意义是指某个对象没有类型 其值为None}
+         \PY{c+c1}{\PYZsh{} NoneType之所以出现是因为定义了一个变量或函数，却没有值或者返回值，因此会默认值为None。 }
+         \PY{n+nb}{type}\PY{p}{(}\PY{n}{a}\PY{p}{)}      \PY{c+c1}{\PYZsh{} 因为a值为None，所以a的类型为NoneType}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} NoneType
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} 序列类型 }
+         \PY{c+c1}{\PYZsh{} list}
+         \PY{c+c1}{\PYZsh{} bytes bytearray memoryview(二进制序列)}
+         \PY{c+c1}{\PYZsh{} range}
+         \PY{c+c1}{\PYZsh{} tuple}
+         \PY{c+c1}{\PYZsh{} str}
+         \PY{c+c1}{\PYZsh{} array}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} 映射类型（dict）}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} 集合 set frozenset(不可修改的set)}
+         \PY{c+c1}{\PYZsh{} Python中的set 和 dict  的实现原理几乎一致，效率会非常高的}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} 上下文管理类型 with}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} 其他的类型}
+         \PY{c+c1}{\PYZsh{} 模块类型 class和实例 函数类型 方法类型 代码类型（代码本省也会被Python解释器理解为一个代码对象） }
+         \PY{c+c1}{\PYZsh{} object对象 type类型 ellipsis类型（省略号类型） motimplemented类型 }
+\end{Verbatim}
+
+
+    \hypertarget{ux7b2cux4e09ux7ae0-ux9b54ux6cd5ux51fdux6570}{%
+\subsubsection{第三章
+魔法函数}\label{ux7b2cux4e09ux7ae0-ux9b54ux6cd5ux51fdux6570}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{c+c1}{\PYZsh{} 3\PYZhy{}1 魔法函数}
+          \PY{c+c1}{\PYZsh{} 调用魔法方法实现list效果}
+          \PY{k}{class} \PY{n+nc}{Company}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{employee\PYZus{}list}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee} \PY{o}{=} \PY{n}{employee\PYZus{}list}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{item}\PY{p}{)}\PY{p}{:}                 \PY{c+c1}{\PYZsh{} 通过定义\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}，使得类变成可迭代类型 }
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee}\PY{p}{[}\PY{n}{item}\PY{p}{]}
+          
+          \PY{n}{company} \PY{o}{=} \PY{n}{Company}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tom}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bob}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jane}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{em} \PY{o+ow}{in} \PY{n}{company}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{em}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} python实际上会做一切优化，使用for循环实际上是要拿到company的迭代器的，即应该是类中的 \PYZus{}\PYZus{}iter\PYZus{}\PYZus{}魔法方法，}
+          \PY{c+c1}{\PYZsh{} 但是当没有的时候，就会去找\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}方法，一次一次的调用，直到数据全部取完为止（通过将数字带入尝试，知道getitem报错为止）。}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+tom
+bob
+jane
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{k}{class} \PY{n+nc}{Company}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{employee\PYZus{}list}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee} \PY{o}{=} \PY{n}{employee\PYZus{}list}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{item}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{item}\PY{p}{)}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee}\PY{p}{[}\PY{n}{item}\PY{p}{]}
+          
+          \PY{n}{company} \PY{o}{=} \PY{n}{Company}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tom}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bob}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jane}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} company[1]}
+          \PY{k}{for} \PY{n}{em} \PY{o+ow}{in} \PY{n}{company}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{em}\PY{p}{)}
+                  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+tom
+1
+bob
+2
+jane
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{c+c1}{\PYZsh{} Python的魔法方法\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{} 可以让对象实现迭代功能，这样就可以使用for...in... 来迭代该对象了}
+         \PY{c+c1}{\PYZsh{} 在用 for..in.. 迭代对象时，如果对象没有实现 \PYZus{}\PYZus{}iter\PYZus{}\PYZus{} \PYZus{}\PYZus{}next\PYZus{}\PYZus{} 迭代器协议，Python的解释器就会去寻找\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{} 来迭代对象，如果连\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{} 都没有定义，这解释器就会报对象不是迭代器的错误：}
+         \PY{c+c1}{\PYZsh{} TypeError: \PYZsq{}Animal\PYZsq{} object is not iterable}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}245}]:} \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}(self,key):   实现了\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}的类的实例对象就可以使用 实例对象[] 的方式取值}
+          \PY{c+c1}{\PYZsh{} 这个方法返回与指定键相关联的值。对序列来说，键应该是0\PYZti{}n\PYZhy{}1的整数，其中n为序列的长度。对映射来说，键可以是任何类型。}
+          \PY{c+c1}{\PYZsh{} 验证：}
+          \PY{k}{class} \PY{n+nc}{Tag}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n+nb}{id}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{id} \PY{o}{=} \PY{n+nb}{id}
+           
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{item}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}被调用}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{item}\PY{p}{)}                    \PY{c+c1}{\PYZsh{}  item的值为实例化对象调用时[]中的值}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{id}
+              
+          \PY{n}{a} \PY{o}{=} \PY{n}{Tag}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{This is id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{id}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{99}\PY{p}{]}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} 因为getitem的item可以接受各种类型，这里因为\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}方法的返回值对item没有要求，所以无所谓，但是当时字典的时候就只能是键，序列的话就之能是序列值。}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+This is id
+\_\_getitem\_\_被调用
+python
+This is id
+\_\_getitem\_\_被调用
+99
+This is id
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{c+c1}{\PYZsh{} 但是事实上这样用是不好的，应该指明类型   即对item的类型有要求，这样不会什么都能传进[]中了}
+          \PY{k}{class} \PY{n+nc}{Tag}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{change}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{This is python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+           
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{item}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}被调用}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{change}\PY{p}{[}\PY{n}{item}\PY{p}{]}
+              
+          \PY{n}{a}\PY{o}{=}\PY{n}{Tag}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_getitem\_\_被调用
+This is python
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{c+c1}{\PYZsh{} 利用魔法方法实现类似字典}
+          \PY{k}{class} \PY{n+nc}{DictDemo}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{key}\PY{p}{,}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+          
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{key}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+          
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}setitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{key}\PY{p}{,}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+          
+          \PY{n}{dictDemo} \PY{o}{=} \PY{n}{DictDemo}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{dictDemo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}       \PY{c+c1}{\PYZsh{} 此处调用了类的\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}方法   }
+          \PY{n}{dictDemo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value1}\PY{l+s+s1}{\PYZsq{}}   \PY{c+c1}{\PYZsh{} 此处调用了类的\PYZus{}\PYZus{}setitem\PYZus{}\PYZus{}方法 }
+          \PY{n}{dictDemo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+value0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}247}]:} 'value1'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}248}]:} \PY{n}{a}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{\PYZcb{}}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{a}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a
+b
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}257}]:} \PY{k}{class} \PY{n+nc}{DictDemo}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{key}\PY{p}{,}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{key}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}setitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{key}\PY{p}{,}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+                        
+          \PY{n}{dictDemo} \PY{o}{=} \PY{n}{DictDemo}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{dictDemo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value1}\PY{l+s+s1}{\PYZsq{}}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{dictDemo}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 这里会出问题的原因是因为\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}中的key在for循环的时候接受的是序列号0123之类的，而字典中a[1]是非法的，字典是不接受索引的。}
+          \PY{c+c1}{\PYZsh{} for循环的时候，传递的是索引值0123，此时\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}接受的key就是索引值，return self.dict[key] 中的key就是索引，而字典类型是不接受索引的。}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyError                                  Traceback (most recent call last)
+
+        <ipython-input-257-72a84e097962> in <module>
+         10 dictDemo = DictDemo('key0','value0')
+         11 dictDemo['key1'] = 'value1'
+    ---> 12 for i in dictDemo:
+         13     print(i)
+         14 
+    
+
+        <ipython-input-257-72a84e097962> in \_\_getitem\_\_(self, key)
+          4         self.dict[key] = value
+          5     def \_\_getitem\_\_(self,key):
+    ----> 6         return self.dict[key]
+          7     def \_\_setitem\_\_(self,key,value):
+          8         self.dict[key] = value
+    
+
+        KeyError: 0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}258}]:} \PY{c+c1}{\PYZsh{} 验证字典不接受索引   通过报错得知，上例的分析正确，for传的是 0123 的索引类型，而字典不接受索引}
+          \PY{n}{a}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{\PYZcb{}}
+          \PY{n}{a}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyError                                  Traceback (most recent call last)
+
+        <ipython-input-258-3b6a0bb53239> in <module>
+          1 \# 验证字典不接受索引   通过报错得知，上例的分析正确，for传的是 0123 的索引类型，而字典不接受索引
+          2 a=\{'a':1,'b':3\}
+    ----> 3 a[1]
+    
+
+        KeyError: 1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}259}]:} \PY{c+c1}{\PYZsh{} 解决方法，自己实现字典的key()方法}
+          \PY{k}{class} \PY{n+nc}{DictDemo}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{key}\PY{p}{,}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{key}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}setitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{key}\PY{p}{,}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+              
+              \PY{k}{def} \PY{n+nf}{keys}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+                  
+                  
+          \PY{n}{dictDemo} \PY{o}{=} \PY{n}{DictDemo}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{dictDemo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value1}\PY{l+s+s1}{\PYZsq{}}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{dictDemo}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+key0
+key1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{c+c1}{\PYZsh{} 3\PYZhy{}2 Python数据模型对对Python的影响}
+         \PY{c+c1}{\PYZsh{} 魔法方法即是Python的数据模型，通过定义魔法函数，会对Python的一些使用产生影响}
+\end{Verbatim}
+
+# 3-3 python魔法函数汇总
+# 分两大类：非数学运算和数学运算
+# 非数学运算：
+# 字符串表示 __repr__    __str__
+# 集合、序列相关 __len__ __getitem__  __setitem__  __delitem__  __contains__
+# 迭代相关  __iter__  __next__
+# 可调用  __call__
+# with上下文管理器  __enter__  __exit__
+# 数值转换 __abs__ __bool__  __int__  __float__  __hash__  __index__
+# 元类相关  __new__  __init__  
+# 属性相关 __getattr__ 、__setattr__    __getattribute__、__setattribute__  __dir__
+# 属性描述符  __get__ __set__  __delete__
+# 协程  __await__ __aiter__ __anext__ __aenter__  __aexit__
+
+# 数学运算 
+#
+#
+#
+#
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{c+c1}{\PYZsh{}字符串表示 魔法方法演示}
+          \PY{k}{class} \PY{n+nc}{Company}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{employee\PYZus{}list}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee} \PY{o}{=} \PY{n}{employee\PYZus{}list}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{item}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{item}\PY{p}{)}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee}\PY{p}{[}\PY{n}{item}\PY{p}{]}
+          
+          \PY{n}{company} \PY{o}{=} \PY{n}{Company}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tom}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bob}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jane}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{company}\PY{p}{)}   \PY{c+c1}{\PYZsh{} 直接打印对象的时候是打印的内存地址}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<\_\_main\_\_.Company object at 0x0000016412B59B70>
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{c+c1}{\PYZsh{} 实际上在print类对象的时候，隐含调用str()方法}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{company}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<\_\_main\_\_.Company object at 0x0000016412B59B70>
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{c+c1}{\PYZsh{} 我们可以通过在类中定义\PYZus{}\PYZus{}str\PYZus{}\PYZus{}魔法方法，改变print的格式}
+          \PY{k}{class} \PY{n+nc}{Company}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{employee\PYZus{}list}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee} \PY{o}{=} \PY{n}{employee\PYZus{}list}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee}\PY{p}{)}   \PY{c+c1}{\PYZsh{} 返回值的格式必须是str类型的。}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{} 用于设置在开发者模式下，直接company时的输出值。}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee}\PY{p}{)}   \PY{c+c1}{\PYZsh{} 返回值的格式必须是str类型的。}
+              
+          \PY{n}{company} \PY{o}{=} \PY{n}{Company}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tom}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bob}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jane}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{company}\PY{p}{)}   \PY{c+c1}{\PYZsh{} 设置\PYZus{}\PYZus{}str\PYZus{}\PYZus{}可以改变输出的格式}
+          \PY{n}{company}  \PY{c+c1}{\PYZsh{} 开发者模式下，直接company会输出和没有设置\PYZus{}\PYZus{}str\PYZus{}\PYZus{}时print输出一样的值，但是设置了\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}后就会改变输出格式。}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+tom,bob,jane
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}148}]:} tom,bob,jane
+\end{Verbatim}
+            总结：  字符串表示 __repr__ 用于开发者模式下的格式化输出   __str__一般情况下的格式化输出
+       实现魔法方法不需要类继承什么，而是只用一个类实现了某个魔法方法，Python解释器就能自动识别出它具有什么特性。不需要我们显示的去调用，
+       即定义了魔法方法后就不需要去调用它，解释器会会知道在什么情况下要调用
+       如实现了__repr__魔法方法后，不需要显式的调用，而是只要写company，解释器就知道要调用这个，解释器自己调用company.__repr__或是repr(company)
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{c+c1}{\PYZsh{} 子类会继承父类的魔法方法}
+          \PY{k}{class} \PY{n+nc}{a}\PY{p}{(}\PY{n}{Company}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{)}
+                  
+          \PY{n}{b} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tom}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bob}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jane}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+tom,bob,jane
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}262}]:} \PY{c+c1}{\PYZsh{} 实现对象的相加  魔法方法 \PYZus{}\PYZus{}add\PYZus{}\PYZus{}}
+          \PY{k}{class} \PY{n+nc}{MyVector}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x} \PY{o}{=} \PY{n}{x}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{y}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}add\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{other\PYZus{}instance}\PY{p}{)}\PY{p}{:}
+                  \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}实现的是对象的相加，返回值是一个对象\PYZdq{}\PYZdq{}\PYZdq{}}
+                  \PY{n}{re\PYZus{}vector} \PY{o}{=} \PY{n}{MyVector}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x} \PY{o}{+} \PY{n}{other\PYZus{}instance}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{+} \PY{n}{other\PYZus{}instance}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{re\PYZus{}vector}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}                        \PY{c+c1}{\PYZsh{} 因为\PYZus{}\PYZus{}add\PYZus{}\PYZus{}方法的返回值是实例对象，所以要使用\PYZus{}\PYZus{}str\PYZus{}\PYZus{}直接输出实例对象进行样式格式化，这样能直观的显示加的执行效果}
+                  \PY{k}{return} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x:}\PY{l+s+si}{\PYZob{}self.x\PYZcb{}}\PY{l+s+s2}{, y:}\PY{l+s+si}{\PYZob{}self.y\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
+              
+          \PY{n}{first\PYZus{}vec} \PY{o}{=} \PY{n}{MyVector}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{second\PYZus{}vec} \PY{o}{=} \PY{n}{MyVector}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{first\PYZus{}vec} \PY{o}{+} \PY{n}{second\PYZus{}vec}\PY{p}{)}
+                  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x:3, y:5
+
+    \end{Verbatim}
+# 3-4 魔法函数的重要性 len() 方法的特殊性
+len方法在处理内置的几个数据类型list、dict、set这些原生的数据结构（都是用cpython实现的），性能会非常的高。
+在是用len对这些数据进行运算的时候，会走捷径，直接读取这些数据在内部负责维护长度的部分，是一个数，而不用再去遍历这些数据。
+所以在使用Python的时候，尽量去使用这些内置的原生类型：1 性能很高 2 在使用一些方法的时候，如len，因为在内部做过一些优化，使用原生类型的话，len去处理的时候，也比我们直接用Python去实现效果更高。
+
+想要说明的是，一些方法在Python内部的实现都是做过相应优化的，直接使用会比再去实现效率，性能更高。
+如for循环，在处理类对象的时候，会首先去找类中实现的__iter__魔法方法，如果没有，则就会去找__getitem__魔法方法，这都是Python内部实现的，直接调用，性能效率都要高。
+
+总结：类定义了魔法函数后，就会具有一定的特性，如定义了__iter__，类就是可迭代的了。提升了代码的灵活性。
+    \hypertarget{ux7b2cux56dbux7ae0-ux6df1ux5165ux7c7bux548cux5bf9ux8c61}{%
+\subsubsection{第四章
+深入类和对象}\label{ux7b2cux56dbux7ae0-ux6df1ux5165ux7c7bux548cux5bf9ux8c61}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{c+c1}{\PYZsh{} 4\PYZhy{}1 鸭子类型 以及鸭子类型和多态的关系}
+          \PY{c+c1}{\PYZsh{} 鸭子类型是贯穿了Python类的核心知识点，维基百科：当你看见一只鸟走起来像鸭子，游泳起来像鸭子，叫起来像鸭子，那么这只鸟就可以被称为鸭子。}
+          \PY{c+c1}{\PYZsh{} 鸭子类型示例：}
+          \PY{k}{class} \PY{n+nc}{Cat}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{say}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{i am a cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{Dog}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{say}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{i am a dog}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{Duck}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{say}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{i am a duck}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{n}{animal} \PY{o}{=} \PY{n}{Cat}                     \PY{c+c1}{\PYZsh{} 特点是这三个类都实现了say这一方法}
+          \PY{n}{animal}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{say}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+i am a cat
+
+    \end{Verbatim}
+
+    \hypertarget{ux7c7bux6bd4ux5728javaux4e2dux5b9eux73b0ux591aux6001}{%
+\subparagraph{类比在java中实现多态}\label{ux7c7bux6bd4ux5728javaux4e2dux5b9eux73b0ux591aux6001}}
+
+\hypertarget{javaux4e2dux5b9eux73b0ux591aux6001}{%
+\subparagraph{java中实现多态：}\label{javaux4e2dux5b9eux73b0ux591aux6001}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ Animal:}
+\NormalTok{    def }\FunctionTok{say}\NormalTok{(self):}
+        \FunctionTok{print}\NormalTok{(}\StringTok{"i am a animal"}\NormalTok{)}
+
+\KeywordTok{class} \FunctionTok{Cat}\NormalTok{(Animal): # 首先继承Animal这个类，然后再重写say这个方法}
+\NormalTok{    def }\FunctionTok{say}\NormalTok{(self):}
+        \FunctionTok{print}\NormalTok{(}\StringTok{"i am a cat"}\NormalTok{)}
+
+\NormalTok{Animal an = }\FunctionTok{Cat}\NormalTok{()           # java中在申明变量的时候必须指明变量的类型，但是Python不要。}
+\NormalTok{an.}\FunctionTok{say}\NormalTok{()                    # 在java等静态语言中，为了实现多态，做法是定义的时候是父类类型，然后实例化的时候传递的是该父类的子类，然后就可以调用子类的方法。}
+\NormalTok{'i am a cat'                # 在java中实际上隐含了一个点就是，必须要继承父类，然后重写与父类相同的方法，才能实现多态}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{c+c1}{\PYZsh{} 但是在python中就不需要这样}
+          \PY{c+c1}{\PYZsh{} 在python中，变量是动态的，可以指向任意一个类型（动态语言的特性，和静态语言的最大的一个区别），}
+          \PY{c+c1}{\PYZsh{} 鸭子类型演示：}
+          \PY{k}{class} \PY{n+nc}{Cat}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{say}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{i am a cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{Dog}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{say}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{i am a dog}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{Duck}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{say}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}                   \PY{c+c1}{\PYZsh{} 特点是这三个类都实现了say这一方法}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{i am a duck}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}   
+                  
+          \PY{n}{animal\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{Cat}\PY{p}{,} \PY{n}{Dog}\PY{p}{,} \PY{n}{Duck}\PY{p}{]}
+          \PY{k}{for} \PY{n}{animal} \PY{o+ow}{in} \PY{n}{animal\PYZus{}list}\PY{p}{:}
+              \PY{n}{animal}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{say}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+i am a cat
+i am a dog
+i am a duck
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}281}]:} \PY{c+c1}{\PYZsh{} Cat、Dog、Duck这三个类都实现了say()这个方法，}
+          \PY{c+c1}{\PYZsh{} 鸭子类型的特点 就是所有的类都实现了同一个方法，这些类就可以归为同一类，这就实现了Python的多态}
+          \PY{c+c1}{\PYZsh{} 在java中，要实现多态，需要所有的类都继承自同一个父类，但是在Python中就只需要实现共同的方法名就行了。}
+          \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bobby1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bobby2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bobby2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bobby}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{name\PYZus{}tuple} \PY{o}{=} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bobby3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bobby4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{name\PYZus{}set} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
+          \PY{n}{name\PYZus{}set}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bobby5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{name\PYZus{}set}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bobby6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{a}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+          \PY{n}{a}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{name\PYZus{}tuple}\PY{p}{)}     \PY{c+c1}{\PYZsh{} extend方法的后面的参数是（iterable一个可迭代对象），所以不仅只能接受list，还可以是元组、集合等可迭代的类型，甚至可以是生成器}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['bobby1', 'bobby2', 'bobby2', 'bobby', 'bobby3', 'bobby4']
+
+    \end{Verbatim}
+
+    \hypertarget{ux603bux7ed3}{%
+\paragraph{总结}\label{ux603bux7ed3}}
+
+鸭子类型的特点 就是所有的类都实现了同一个方法，这些类就可以归为同一类
+这也就解释了，在Python中，只要实现了某种魔法方法（不需要通过继承的方式），就可以具有某些数据类型的特征了，如
+实现了\texttt{\_\_iter\_\_}就是可迭代的，就可以和可迭代的类型归为同一类对象
+使用鸭子类型是有好处的：如果我们要写个类，该类要求实现序列的某一些特性，如切片，for循环取值等等，我们可以继承序列的抽象基类，但是我们又不需要其他的功能，此时我们就可以使用鸭子类型，只实现一些魔法函数\_\_getitem\_\_和\_\_iter\_\_，
+就能使该类的实例对象能够切片，for循环取值，相比于继承完整的类，鸭子类型值要求实现几个相应的魔法函数，更加轻便
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}275}]:} \PY{c+c1}{\PYZsh{} 我们要认识到，Python的一些方法中不仅是可以存某个数据，还可以是某一类型的数据，如extend()就是可以接收一切的可迭代的对象，而不只是list等具体的类型。  }
+          \PY{c+c1}{\PYZsh{} 下面定义一个类，实现其\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}魔法方法，此时该类就是一个可迭代的对象了，再使用extend()添加}
+          \PY{k}{class} \PY{n+nc}{Test}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{list\PYZus{}instance}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{a} \PY{o}{=} \PY{n}{list\PYZus{}instance}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{a}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+              
+          \PY{n}{test} \PY{o}{=} \PY{n}{Test}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{c} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{c}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{test}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{c}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 因为Test类实现了\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}方法，所以类Test也是可迭代的，满足extend()的参数要是迭代器的要求}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['c', 'd', 'a', 'b']
+
+    \end{Verbatim}
+
+    for 循环是如何工作的
+
+https://www.jb51.net/article/117554.htm
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{c+c1}{\PYZsh{} 可迭代对象必须实现了\PYZus{}\PYZus{}iter\PYZus{}\PYZus{}()魔法方法，\PYZus{}\PYZus{}iter\PYZus{}\PYZus{}()返回一个迭代器，而迭代器只需要实现了\PYZus{}\PYZus{}next\PYZus{}\PYZus{}()方法}
+          \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+          \PY{n+nb}{iter} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}iter\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{iter}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}next\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}193}]:} 1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{n+nb}{iter}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}next\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}191}]:} 2
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{n+nb}{iter}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}next\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}   \PY{c+c1}{\PYZsh{} 我们看到它不断地调用\PYZus{}\PYZus{}next\PYZus{}\PYZus{}方法，其实就是不断地迭代获取容器中的元素，直到容器中没有更多元素抛出 StopIteration 异常为止。（在for循环的实现中，for会自动处理StopIteration 异常，不会抛出，此时也就意味着for循环结束）}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        StopIteration                             Traceback (most recent call last)
+
+        <ipython-input-192-b7997f96db20> in <module>
+    ----> 1 iter.\_\_next\_\_()
+    
+
+        StopIteration: 
+
+    \end{Verbatim}
+
+    那么 for 语句又是如何循环的呢？它的步骤是： 1.
+先判断对象是否为可迭代对象，不是的话直接报错，抛出TypeError异常，是的话，调用\texttt{\_\_iter\_\_}，返回一个迭代器
+2.
+不断地调用迭代器的\texttt{\_\_next\_\_}方法，每次按序返回迭代器中的一个值
+3. 迭代到最后，没有更多元素了，就抛出异常 StopIteration，这个异常 python
+自己会处理，不会暴露给开发者
+
+for 循环本质是不断地调用迭代器的\texttt{\_\_next\_\_}方法，直到有
+StopIteration 异常为止，所以任何可迭代对象都可以作用在for循环中。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{c+c1}{\PYZsh{} 模仿内建函数range的功能的类}
+          \PY{k}{class} \PY{n+nc}{MyRange}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num} \PY{o}{=} \PY{n}{num}
+          
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}iter\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}
+          
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}next\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i} \PY{o}{\PYZlt{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num}\PY{p}{:}
+                      \PY{n}{i} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{return} \PY{n}{i}
+                  \PY{k}{else}\PY{p}{:}\PY{c+c1}{\PYZsh{} 达到某个条件时必须抛出此异常，否则会无止境地迭代下去}
+                      \PY{k}{raise} \PY{n+ne}{StopIteration}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{MyRange}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+1
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{c+c1}{\PYZsh{} 解析：因为for 会先判断对象是否可迭代，因为类MyRange实现了\PYZus{}\PYZus{}iter\PYZus{}\PYZus{}，所以该类对象是一个可迭代对象，}
+          \PY{c+c1}{\PYZsh{} 还要求可迭代对象必须返回实现了\PYZus{}\PYZus{}next\PYZus{}\PYZus{}方法的迭代器，该类中因为类本身实现了\PYZus{}\PYZus{}next\PYZus{}\PYZus{}方法，所以是一个迭代器，所以在\PYZus{}\PYZus{}iter\PYZus{}\PYZus{}中只要返回本身的实例对象，就是返回了一个可迭代的对象。}
+          \PY{c+c1}{\PYZsh{} 两个条件都满足，所以for拿到了迭代器，不断调用\PYZus{}\PYZus{}next\PYZus{}\PYZus{}方法，直到有StopIteration异常为止。}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}279}]:} \PY{c+c1}{\PYZsh{} 4\PYZhy{}2 抽象基类}
+          \PY{c+c1}{\PYZsh{} 当做java中的接口，java中是不能实现多继承的（Java中只能继承一个类，但是可以实现多个接口），接口是不能用来实例化的，}
+          \PY{c+c1}{\PYZsh{} Python中的抽象基类也是不能实例化的，Python是动态语言，动态语言是没有变量的类型的，实际在Python中，变量只是一个符号而已，它是可以指向任意类型的对象，所以在Python中也就没有多态这个概念，我们可以赋值任何类型数据给任意一个变量，而且是可以修改的}
+          \PY{c+c1}{\PYZsh{} 所以不需要像java中去实现一个多态，本身从语言的层面上讲，它就已经是一个支持多态的语言了。}
+          \PY{n}{因为动态语言不需要指明变量的类型}\PY{err}{，}\PY{n}{所以就少了在编译的时候检查类型的环节}\PY{err}{，}\PY{n}{所以只有等到运行时才能知道错误}\PY{err}{，}\PY{n}{不能事先知道}\PY{err}{。}\PY{n}{无法做类型检查}
+          
+          \PY{n}{Python信奉鸭子类型}\PY{err}{，}\PY{n}{贯穿于整个Python面向对象之中}\PY{err}{，}\PY{n}{在使用和设计Python的类的时候}\PY{err}{，}\PY{n}{一定要将鸭子类型的思想放在首位}\PY{err}{，}\PY{n}{和java最大的区别在于}\PY{err}{，}\PY{n}{我们在实现class的时候不需要去继承某个指定的类}\PY{err}{，}\PY{n}{我们一个类到底有什么特性和到底是属于什么类型}\PY{err}{，}
+          \PY{n}{要看里面到底实现了什么魔法函数}\PY{err}{，}\PY{n}{不同的魔法函数赋予了类不同的特性}\PY{err}{。}
+          \PY{n}{鸭子类型和魔法函数构成了Python的基础}\PY{err}{，}\PY{n}{也就是Python的协议}\PY{err}{，}\PY{n}{Python本身不是通过去继承某个类或是实现某个接口就具有了某些特性}\PY{err}{，}\PY{n}{而是只要我们的类去实现了指定的魔法函数}\PY{err}{，}\PY{n}{该类就是某种类型的对象}
+          \PY{n}{所以在写代码的时候应该尽量去遵从这种协议}\PY{err}{，}\PY{n}{写出的代码才足够Python}
+          
+          \PY{n}{分析}\PY{err}{：}\PY{n}{Python动态语言的特性导致变量只是符号}\PY{err}{，}\PY{n}{可以指向任意类型} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{鸭子类型}\PY{err}{，}\PY{n}{只要是所有的类都实现了同一个方法}\PY{err}{，}\PY{n}{就是同一种类型} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{设计出只要我们的类去实现了指定的魔法函数}\PY{err}{，}\PY{n}{该类就是某种类型的对象}\PY{err}{，}\PY{n}{都具有同一种特性} 
+          
+          
+          \PY{n}{抽象基类}\PY{err}{：}
+          \PY{l+m+mf}{1.} \PY{n}{在该基础的类中}\PY{err}{，}\PY{n}{设定好一些方法}\PY{err}{，}\PY{n}{所有继承该基类的类都必须覆盖这些抽象方法}
+          \PY{l+m+mf}{2.} \PY{n}{抽象基类是无法实例化的}
+          \PY{n}{疑问}\PY{err}{：}\PY{n}{为什么有了鸭子类型还要有抽象基类的概念}\PY{err}{，}\PY{n}{直接实现一些方法不就可以了吗}
+          \PY{n}{假设两种应用场景}\PY{err}{：}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+          File "<ipython-input-279-e0c06c775723>", line 5
+        因为动态语言不需要指明变量的类型，所以就少了在编译的时候检查类型的环节，所以只有等到运行时才能知道错误，不能事先知道。无法做类型检查
+                                                                         \^{}
+    SyntaxError: invalid character in identifier
+    
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}285}]:} \PY{c+c1}{\PYZsh{} 场景一 我们去检查某个类是否有某种方法}
+          \PY{k}{class} \PY{n+nc}{Company}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{employee\PYZus{}list}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee} \PY{o}{=} \PY{n}{employee\PYZus{}list}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{employee}\PY{p}{)}
+              
+          \PY{n}{com} \PY{o}{=} \PY{n}{Company}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bobby1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bobby2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{hasattr}\PY{p}{(}\PY{n}{com}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} 判断某个对象是否含有某个属性 类中的函数也是类的属性}
+          
+          \PY{c+c1}{\PYZsh{} 我们在某种情况之下，需要判定某个对象的类型}
+          \PY{k+kn}{from} \PY{n+nn}{collections}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{Sized}
+          \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{com}\PY{p}{,} \PY{n}{Sized}\PY{p}{)} \PY{c+c1}{\PYZsh{} 判断某个类或对象是否是指定的类型      一般偏向于用这种方法，而不是hasattr()}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{com}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}286}]:} \PY{c+c1}{\PYZsh{} 场景二 我们需要强制某个子类必须实现某些方法}
+          \PY{c+c1}{\PYZsh{} 如实现了一个web框架，希望集成cache（redis, cache, memorychache），此时我们需要设计一个抽象基类，指定子类必须实现某些方法}
+          \PY{k}{class} \PY{n+nc}{CacheBase}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{get}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{pass}
+              \PY{k}{def} \PY{n+nf}{set}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{pass}
+          \PY{c+c1}{\PYZsh{} 事先定义一些必须实现的方法    }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}297}]:} \PY{c+c1}{\PYZsh{} 如何去模拟一个抽象基类}
+          \PY{k}{class} \PY{n+nc}{CacheBase}\PY{p}{(}\PY{p}{)}\PY{p}{:}     
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}实现一个缓存基类\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{k}{def} \PY{n+nf}{get}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{raise} \PY{n+ne}{NotImplementedError}       \PY{c+c1}{\PYZsh{} 默认是抛出异常的，即提示用户在调用的时候，如果没有自己重新定义这些方法，是会抛出相应的异常}
+              \PY{k}{def} \PY{n+nf}{set}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{raise} \PY{n+ne}{NotImplementedError}
+          
+          \PY{k}{class} \PY{n+nc}{RedisCache}\PY{p}{(}\PY{n}{CacheBase}\PY{p}{)}\PY{p}{:}
+          \PY{c+c1}{\PYZsh{}     def set(self, key, value):    \PYZsh{} 继承后，重写了抽象基类的方法，则调用的时候就是调用该重写的方法}
+          \PY{c+c1}{\PYZsh{}         pass}
+              \PY{k}{pass}
+          
+          \PY{n}{redis\PYZus{}cache} \PY{o}{=} \PY{n}{RedisCache}\PY{p}{(}\PY{p}{)}
+          \PY{n}{redis\PYZus{}cache}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{key}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NotImplementedError                       Traceback (most recent call last)
+
+        <ipython-input-297-826616cc6cfd> in <module>
+         13 
+         14 redis\_cache = RedisCache()
+    ---> 15 redis\_cache.set("key", "value")
+         16 
+    
+
+        <ipython-input-297-826616cc6cfd> in set(self, key, value)
+          5         raise NotImplementedError       \# 默认是抛出异常的，即提示用户在调用的时候，如果没有自己重新定义这些方法，是会抛出相应的异常
+          6     def set(self, key, value):
+    ----> 7         raise NotImplementedError
+          8 
+          9 class RedisCache(CacheBase):
+    
+
+        NotImplementedError: 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}322}]:} \PY{c+c1}{\PYZsh{} 上例中有个缺点就是，只有在调用set方法的时候才会报异常，没有实现抽象基类的方法，如何实现在初始化的时候就抛出异常呢（当没有实现抽象基类的方法的时候）}
+          \PY{k+kn}{import} \PY{n+nn}{abc}
+          \PY{k}{class} \PY{n+nc}{CacheBase}\PY{p}{(}\PY{n}{metaclass}\PY{o}{=}\PY{n}{abc}\PY{o}{.}\PY{n}{ABCMeta}\PY{p}{)}\PY{p}{:}     
+              \PY{n+nd}{@abc}\PY{o}{.}\PY{n}{abstractmethod}
+              \PY{k}{def} \PY{n+nf}{get}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{pass} \PY{c+c1}{\PYZsh{} 此处就可以直接pass了，不需要raise NotImplementedError，  因为使用了abc，这样当一个类继承该抽象基类时没有实现其抽象方法的时候，就会报错}
+                                            \PY{c+c1}{\PYZsh{} 相当于之前是手动加保险，用raise手动抛出异常，这里我们借助abc模块，所以即不用手动在写出来了。}
+              \PY{n+nd}{@abc}\PY{o}{.}\PY{n}{abstractmethod}
+              \PY{k}{def} \PY{n+nf}{set}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{pass}
+              
+          \PY{k}{class} \PY{n+nc}{RedisCache}\PY{p}{(}\PY{n}{CacheBase}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{get}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{pass}
+              
+              \PY{k}{def} \PY{n+nf}{set}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{:}     \PY{c+c1}{\PYZsh{} python 中只要求方法名相同}
+                  \PY{k}{pass}
+          
+          \PY{n}{redis\PYZus{}cache} \PY{o}{=} \PY{n}{RedisCache}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 这样直接在初始化阶段就会告知创建 RedisCache(CacheBase)类的时候要实现的抽象方法 TypeError: Can\PYZsq{}t instantiate abstract class RedisCache with abstract methods get, set }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} python的 collections.abc 下存放了很多的抽象基类，且这些抽象基类中都有一个魔法方法，\PYZus{}\PYZus{}subclasshook\PYZus{}\PYZus{}(cls, C)}
+        \PY{c+c1}{\PYZsh{} 抽象类Sized的实现方式}
+        
+        \PY{k}{class} \PY{n+nc}{Sized}\PY{p}{(}\PY{n}{metaclass}\PY{o}{=}\PY{n}{ABCMeta}\PY{p}{)}\PY{p}{:}
+            \PY{n+nv+vm}{\PYZus{}\PYZus{}slots\PYZus{}\PYZus{}} \PY{o}{=} \PY{p}{(}\PY{p}{)}
+            
+            \PY{n+nd}{@abstractmethod}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{0}
+            
+            \PY{n+nd}{@classmethod}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}subclasshook\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{,} \PY{n}{C}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n+nb+bp}{cls} \PY{o+ow}{is} \PY{n}{Sized}\PY{p}{:}
+                    \PY{k}{return} \PY{n}{\PYZus{}check\PYZus{}methods}\PY{p}{(}\PY{n}{C}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{NotImplemented}
+        \PY{c+c1}{\PYZsh{} 所以是Python中的抽象基类可以用来 1. 调用isinstance   2. 用来作接口的强制规定     }
+        
+        \PY{c+c1}{\PYZsh{} 不推荐使用抽象基类，实际上在作接口的时候我们也是可以有代替的办法的，}
+        \PY{c+c1}{\PYZsh{} Python中虽然实现了静态语言中的抽象类，但还是尽量在重用鸭子类型}
+        \PY{c+c1}{\PYZsh{} Python本身一些类型的实现也不是通过抽象类型来继承的，如list这个可迭代对象也不是通过继承Iterable这个抽象基类来实现的}
+        \PY{c+c1}{\PYZsh{} 使用抽象基类很容易造成设计过度的问题反而不利于理解，还不如使用Mixin（多继承）实现。}
+\end{Verbatim}
+
+
+    \hypertarget{ux603bux7ed3-python-ux4e2dux5c3dux91cfux4f7fux7528ux9e2dux5b50ux7c7bux578bux6765ux5b9eux73b0ux7c7bux578b-pythonux672cux8eabux4e5fux662fux8fd9ux4e48ux505aux7684ux4e0dux63a8ux8350ux4f7fux7528ux62bdux8c61ux57faux7c7b}{%
+\subparagraph{总结： python 中尽量使用鸭子类型来实现类型
+Python本身也是这么做的，不推荐使用抽象基类}\label{ux603bux7ed3-python-ux4e2dux5c3dux91cfux4f7fux7528ux9e2dux5b50ux7c7bux578bux6765ux5b9eux73b0ux7c7bux578b-pythonux672cux8eabux4e5fux662fux8fd9ux4e48ux505aux7684ux4e0dux63a8ux8350ux4f7fux7528ux62bdux8c61ux57faux7c7b}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}337}]:} \PY{c+c1}{\PYZsh{} 4\PYZhy{}4 isinstance和type的区别   推荐使用isinstance 而少用 type}
+          
+          \PY{k}{class} \PY{n+nc}{A}\PY{p}{:}
+              \PY{k}{pass}
+          
+          \PY{k}{class} \PY{n+nc}{B}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+              \PY{k}{pass}
+          
+          \PY{n}{b} \PY{o}{=} \PY{n}{B}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{n}{B}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{n}{A}\PY{p}{)}\PY{p}{)}   \PY{c+c1}{\PYZsh{}因为 A 是 B 的父类，所以B的实例也是A的类型}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{b}\PY{p}{)} \PY{o+ow}{is} \PY{n}{B}\PY{p}{)}    \PY{c+c1}{\PYZsh{} is 判断 是否是同一个对象， 比较的是 id()  即 id()==id()这样   而== 判断值类型    type(b)指向B这个类对象 （在内存中只有一个 是类模板）}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{b}\PY{p}{)} \PY{o+ow}{is} \PY{n}{A}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+True
+True
+False
+
+    \end{Verbatim}
+
+    isinstance() 函数来判断一个对象是否是一个已知的类型，类似 type()。
+isinstance() 与 type() 区别： 1. type()
+不会认为子类是一种父类类型，不考虑继承关系。 2. isinstance()
+会认为子类是一种父类类型，考虑继承关系。
+
+如果要判断两个类型是否相同推荐使用 isinstance()。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}360}]:} \PY{c+c1}{\PYZsh{} 4\PYZhy{}7 类方法 实例方法，静态方法}
+          \PY{k}{class} \PY{n+nc}{Date}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{year}\PY{p}{,} \PY{n}{month}\PY{p}{,} \PY{n}{day}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{year} \PY{o}{=} \PY{n}{year}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{month} \PY{o}{=} \PY{n}{month}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{day} \PY{o}{=} \PY{n}{day}
+                  
+              \PY{k}{def} \PY{n+nf}{tomorrow}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{day} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  
+              \PY{n+nd}{@staticmethod}
+              \PY{k}{def} \PY{n+nf}{parse\PYZus{}from\PYZus{}string}\PY{p}{(}\PY{n}{date\PYZus{}str}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{year}\PY{p}{,} \PY{n}{month}\PY{p}{,} \PY{n}{day} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{date\PYZus{}str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{}解包的时候，个数要一致}
+                  \PY{k}{return} \PY{n}{Date}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{year}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{month}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{day}\PY{p}{)}\PY{p}{)}
+              
+              \PY{n+nd}{@staticmethod}
+              \PY{k}{def} \PY{n+nf}{valid\PYZus{}str}\PY{p}{(}\PY{n}{date\PYZus{}str}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{year}\PY{p}{,} \PY{n}{month}\PY{p}{,} \PY{n}{day} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{date\PYZus{}str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+                  \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{year}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{month}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n+nb}{int}\PY{p}{(}\PY{n}{month}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{day}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n+nb}{int}\PY{p}{(}\PY{n}{day}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{31}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{return} \PY{k+kc}{True}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{k}{return} \PY{k+kc}{False}
+                  
+              \PY{n+nd}{@classmethod}
+              \PY{k}{def} \PY{n+nf}{from\PYZus{}string}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{,} \PY{n}{date\PYZus{}str}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{year}\PY{p}{,} \PY{n}{month}\PY{p}{,} \PY{n}{day} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{date\PYZus{}str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}  
+                  \PY{k}{return} \PY{n+nb+bp}{cls}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{year}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{month}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{day}\PY{p}{)}\PY{p}{)}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}self.year\PYZcb{}}\PY{l+s+s2}{/}\PY{l+s+si}{\PYZob{}self.month\PYZcb{}}\PY{l+s+s2}{/}\PY{l+s+si}{\PYZob{}self.day\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
+              
+          \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+              \PY{n}{new\PYZus{}day} \PY{o}{=} \PY{n}{Date}\PY{p}{(}\PY{l+m+mi}{2018}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{31}\PY{p}{)}
+              \PY{n}{new\PYZus{}day}\PY{o}{.}\PY{n}{tomorrow}\PY{p}{(}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{new\PYZus{}day}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} 用staticmethod完成完成初始化}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{Date}\PY{o}{.}\PY{n}{parse\PYZus{}from\PYZus{}string}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2019\PYZhy{}1\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} 用classmethod完成完成初始化}
+              \PY{n}{new\PYZus{}day} \PY{o}{=} \PY{n}{Date}\PY{o}{.}\PY{n}{from\PYZus{}string}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2019\PYZhy{}12\PYZhy{}21}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{new\PYZus{}day}\PY{p}{)}
+              
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{Date}\PY{o}{.}\PY{n}{valid\PYZus{}str}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2019\PYZhy{}12\PYZhy{}32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2018/12/32
+2019/1/2
+2019/12/21
+False
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}401}]:} \PY{c+c1}{\PYZsh{} 4\PYZhy{}9 python对象的自省机制: 通过一定的机制查询到对象的内部结构}
+          \PY{k}{class} \PY{n+nc}{Person}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}人\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user}\PY{l+s+s1}{\PYZsq{}}
+              
+          \PY{k}{class} \PY{n+nc}{Student}\PY{p}{(}\PY{n}{Person}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{school\PYZus{}name}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{school\PYZus{}name} \PY{o}{=} \PY{n}{school\PYZus{}name}
+                  
+          \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+              \PY{n}{user} \PY{o}{=} \PY{n}{Student}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xxx学校}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} 通过\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}查询属性}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{user}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{user}\PY{o}{.}\PY{n}{name}\PY{p}{)}
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{Student}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{Person}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}}\PY{p}{)}  
+              
+          
+              \PY{c+c1}{\PYZsh{} 通过\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}为实例对象添加属性    利用\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}本身打印的是字典的特性}
+              \PY{n}{user}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{school\PYZus{}address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{上海市}\PY{l+s+s1}{\PYZsq{}}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{user}\PY{o}{.}\PY{n}{school\PYZus{}address}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{user}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}}\PY{p}{)}
+              
+          \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}doc\PYZus{}\PYZus{}是文档信息}
+             
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{80}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{dir}\PY{p}{(}\PY{n}{user}\PY{p}{)}\PY{p}{)}   \PY{c+c1}{\PYZsh{} 使用dir()会列出对象的所有属性    只有属性的名称但是没有值}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{dir}\PY{p}{(}\PY{n}{Person}\PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'school\_name': 'xxx学校'\}
+user
+\{'\_\_module\_\_': '\_\_main\_\_', '\_\_init\_\_': <function Student.\_\_init\_\_ at 0x000001D7D95F1268>, '\_\_doc\_\_': None\}
+\{'\_\_module\_\_': '\_\_main\_\_', '\_\_doc\_\_': '人', 'name': 'user', '\_\_dict\_\_': <attribute '\_\_dict\_\_' of 'Person' objects>, '\_\_weakref\_\_': <attribute '\_\_weakref\_\_' of 'Person' objects>\}
+上海市
+\{'school\_name': 'xxx学校', 'school\_address': '上海市'\}
+********************************************************************************
+['\_\_class\_\_', '\_\_delattr\_\_', '\_\_dict\_\_', '\_\_dir\_\_', '\_\_doc\_\_', '\_\_eq\_\_', '\_\_format\_\_', '\_\_ge\_\_', '\_\_getattribute\_\_', '\_\_gt\_\_', '\_\_hash\_\_', '\_\_init\_\_', '\_\_init\_subclass\_\_', '\_\_le\_\_', '\_\_lt\_\_', '\_\_module\_\_', '\_\_ne\_\_', '\_\_new\_\_', '\_\_reduce\_\_', '\_\_reduce\_ex\_\_', '\_\_repr\_\_', '\_\_setattr\_\_', '\_\_sizeof\_\_', '\_\_str\_\_', '\_\_subclasshook\_\_', '\_\_weakref\_\_', 'name', 'school\_address', 'school\_name']
+['\_\_class\_\_', '\_\_delattr\_\_', '\_\_dict\_\_', '\_\_dir\_\_', '\_\_doc\_\_', '\_\_eq\_\_', '\_\_format\_\_', '\_\_ge\_\_', '\_\_getattribute\_\_', '\_\_gt\_\_', '\_\_hash\_\_', '\_\_init\_\_', '\_\_init\_subclass\_\_', '\_\_le\_\_', '\_\_lt\_\_', '\_\_module\_\_', '\_\_ne\_\_', '\_\_new\_\_', '\_\_reduce\_\_', '\_\_reduce\_ex\_\_', '\_\_repr\_\_', '\_\_setattr\_\_', '\_\_sizeof\_\_', '\_\_str\_\_', '\_\_subclasshook\_\_', '\_\_weakref\_\_', 'name']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}395}]:} \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{dir}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 这里使用 a.\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}是没有用的，通过dir(a)的结果也可见，list中没有实现\PYZus{}\PYZus{}dict\PYZus{}\PYZus{}属性}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['\_\_add\_\_', '\_\_class\_\_', '\_\_contains\_\_', '\_\_delattr\_\_', '\_\_delitem\_\_', '\_\_dir\_\_', '\_\_doc\_\_', '\_\_eq\_\_', '\_\_format\_\_', '\_\_ge\_\_', '\_\_getattribute\_\_', '\_\_getitem\_\_', '\_\_gt\_\_', '\_\_hash\_\_', '\_\_iadd\_\_', '\_\_imul\_\_', '\_\_init\_\_', '\_\_init\_subclass\_\_', '\_\_iter\_\_', '\_\_le\_\_', '\_\_len\_\_', '\_\_lt\_\_', '\_\_mul\_\_', '\_\_ne\_\_', '\_\_new\_\_', '\_\_reduce\_\_', '\_\_reduce\_ex\_\_', '\_\_repr\_\_', '\_\_reversed\_\_', '\_\_rmul\_\_', '\_\_setattr\_\_', '\_\_setitem\_\_', '\_\_sizeof\_\_', '\_\_str\_\_', '\_\_subclasshook\_\_', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
+
+    \end{Verbatim}
+
+    \hypertarget{ux5173ux4e8eux7c7bux7684ux591aux7ee7ux627f-ux8c03ux7528-ux4f20ux53c2ux7684ux8bf4ux660e}{%
+\subsubsection{关于类的多继承 调用
+传参的说明}\label{ux5173ux4e8eux7c7bux7684ux591aux7ee7ux627f-ux8c03ux7528-ux4f20ux53c2ux7684ux8bf4ux660e}}
+
+python在多继承的时候，内部的查找方法的实现叫做C3算法，算法的实现很复杂，但是可以通过类的\texttt{\_\_mro\_\_}属性进行查看的
+而在类的多继承中，super()的调用关系是：
+按照\texttt{\_\_mro\_\_}的顺序挨个指代
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}411}]:} \PY{c+c1}{\PYZsh{} super()实际上并不是父类  而是按照 \PYZus{}\PYZus{}mro\PYZus{}\PYZus{}的顺序的值进行调用的}
+          \PY{k}{class} \PY{n+nc}{A}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{B}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+              
+          \PY{k}{class} \PY{n+nc}{C}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{D}\PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{n}{C}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+              \PY{n}{d} \PY{o}{=} \PY{n}{D}\PY{p}{(}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{D}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}mro\PYZus{}\PYZus{}}\PY{p}{)}    \PY{c+c1}{\PYZsh{} 有结果可知，D的super是B，B的super是A，A没有调用super()，所以就没有输出了}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+D
+B
+A
+(<class '\_\_main\_\_.D'>, <class '\_\_main\_\_.B'>, <class '\_\_main\_\_.A'>, <class '\_\_main\_\_.C'>, <class 'object'>)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}423}]:} \PY{c+c1}{\PYZsh{} 上面的例子中，由于实现的问题，类C是没有被调用初始化函数的，而C是被D继承了的，所以当类D用到类C的方法是没有问题的，}
+          \PY{c+c1}{\PYZsh{} 但是因为类C是没有被调用初始化函数的，所以若C的方法有参数的话就没法传递进来，此时D调用C含有实例属性的方法的时候就会报错}
+          \PY{k}{class} \PY{n+nc}{A}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{B}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+              
+          \PY{k}{class} \PY{n+nc}{C}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{c} \PY{o}{=} \PY{n}{c}
+                  
+              \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我是C的方法}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{c}\PY{p}{)}
+              
+                  
+          \PY{k}{class} \PY{n+nc}{D}\PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{n}{C}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+              \PY{n}{d} \PY{o}{=} \PY{n}{D}\PY{p}{(}\PY{p}{)}
+              \PY{n}{d}\PY{o}{.}\PY{n}{fun}\PY{p}{(}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{D}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}mro\PYZus{}\PYZus{}}\PY{p}{)}   
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+D
+B
+A
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        AttributeError                            Traceback (most recent call last)
+
+        <ipython-input-423-aad0be701403> in <module>
+         26 if \_\_name\_\_ == "\_\_main\_\_":
+         27     d = D()
+    ---> 28     d.fun()
+         29     print(D.\_\_mro\_\_)
+    
+
+        <ipython-input-423-aad0be701403> in fun(self)
+         16 
+         17     def fun(self):
+    ---> 18         print("我是C的方法",self.c)
+         19 
+         20 
+    
+
+        AttributeError: 'D' object has no attribute 'c'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}455}]:} \PY{c+c1}{\PYZsh{} 解决办法如下，必须使C的参数能够传递进去，什么位置要传递该参数关键看super()的类是否需要参数}
+          \PY{k}{class} \PY{n+nc}{A}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{B}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+              
+          \PY{k}{class} \PY{n+nc}{C}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}                         \PY{c+c1}{\PYZsh{} 让C继承了A}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{c} \PY{o}{=} \PY{n}{c}
+                  
+                  
+              \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我是C的方法}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{c}\PY{p}{)}
+              
+                  
+          \PY{k}{class} \PY{n+nc}{D}\PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{n}{C}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+              \PY{n}{d} \PY{o}{=} \PY{n}{D}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{d}\PY{o}{.}\PY{n}{fun}\PY{p}{(}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{D}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}mro\PYZus{}\PYZus{}}\PY{p}{)}  
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{A}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}bases\PYZus{}\PYZus{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 由结果可知，D的\PYZus{}\PYZus{}init\PYZus{}\PYZus{}首先要有要传递的参数，D的super是B，B的init不需要参数，所以不传递，B的super是C，C有参数，所以B中的init要传递参数，}
+          \PY{c+c1}{\PYZsh{} C的super是A，A没有参数，就不需要传递了。}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+D
+B
+C
+A
+我是C的方法 2
+(<class '\_\_main\_\_.D'>, <class '\_\_main\_\_.B'>, <class '\_\_main\_\_.C'>, <class '\_\_main\_\_.A'>, <class 'object'>)
+(<class 'object'>,)
+
+    \end{Verbatim}
+多继承时， 类的继承必须保持一致的 MRO.  若产生冲突则报错， 可通过调用 __mro__  查看类的继承调用顺序，
+类中的属性以及方法的调用顺序都与MRO 保持一致                                                        http://juke.outofmemory.cn/entry/128164     
+    \hypertarget{mixinux6a21ux5f0f}{%
+\subsubsection{Mixin模式}\label{mixinux6a21ux5f0f}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}431}]:} \PY{c+c1}{\PYZsh{} python多继承也是不推荐使用的，尽量只继承一个类}
+          \PY{c+c1}{\PYZsh{} Mixin模式特点：}
+          \PY{c+c1}{\PYZsh{} 1.  Mixin类功能单一  （只有一个方法）}
+          \PY{c+c1}{\PYZsh{} 2. 不和基类关联（即没有继承其他类），可以和任意基类组合，基类可以不和Mixin关联就能初始化成功    \PYZhy{}\PYZhy{}\PYZhy{}  组合模式（java）}
+          \PY{c+c1}{\PYZsh{} 3. 在Mixin中不要使用super这种用法}
+          \PY{c+c1}{\PYZsh{} 另外，在设计Mixin类的时候，类名一般以Mixin结尾，不成文的规定}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}435}]:} \PY{c+c1}{\PYZsh{} Minix实例：  因为}
+          \PY{k}{class} \PY{n+nc}{Vehicle}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}交通工具类\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{k}{pass}
+          
+          \PY{k}{class} \PY{n+nc}{PlaneMixin}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}飞行器特性\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{k}{def} \PY{n+nf}{fly}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I am flying}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{Airplane}\PY{p}{(}\PY{n}{Vehicle}\PY{p}{,} \PY{n}{PlaneMixin}\PY{p}{)}\PY{p}{:}
+              \PY{k}{pass}
+\end{Verbatim}
+
+可以看到，上面的Airplane类实现了多继承，不过它继承的第二个类我们起名为PlaneMixin，而不是Plane，这个并不影响功能，但是会告诉后来读代码的人，这个类是一个Mixin类。所以从含义上理解，Airplane只是一个Vehicle，不是一个Plane。这个Mixin，表示混入(mix-in)，它告诉别人，这个类是作为功能添加到子类中，而不是作为父类，它的作用同Java中的接口。
+
+使用Mixin类实现多重继承要非常小心
+
+1. 首先它必须表示某一种功能，而不是某个物品，如同Java中的Runnable，Callable等
+2. 其次它必须责任单一，如果有多个功能，那就写多个Mixin类
+3. 然后，它不依赖于子类的实现
+4. 最后，子类即便没有继承这个Mixin类，也照样可以工作，就是缺少了某个功能。（比如飞机照样可以载客，就是不能飞了）组合优于继承，继承的结构不宜太多，我比较欣赏单一继承结构
+Mixin其实还是解决高内聚，低耦合的问题有两个主要的使用 mixin 的场景:
+
+你希望给一个类提供很多可选的特征(feature).
+你希望在很多不同的类中使用一个特定的特征(feature).
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Mixin} \PY{n}{的实现}   \PY{n}{http}\PY{p}{:}\PY{o}{/}\PY{o}{/}\PY{n}{juke}\PY{o}{.}\PY{n}{outofmemory}\PY{o}{.}\PY{n}{cn}\PY{o}{/}\PY{n}{entry}\PY{o}{/}\PY{l+m+mi}{128164}
+        \PY{n}{假定我们有下面两个类需要Mixin}\PY{p}{:}
+        
+            \PY{k}{class} \PY{n+nc}{Base}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+                \PY{k}{pass}
+        
+            \PY{k}{class} \PY{n+nc}{FeatureMixin}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+                \PY{k}{pass}
+        
+        \PY{n}{方式一}\PY{err}{：}\PY{n}{直接定义一个类} \PY{n}{mixin} \PY{n}{所有的} \PY{n}{feature}
+        
+            \PY{k}{class} \PY{n+nc}{MyClass}\PY{p}{(}\PY{n}{Base}\PY{p}{,} \PY{n}{FeatureMixin}\PY{p}{)}\PY{p}{:}
+                \PY{k}{pass}
+        
+        \PY{n}{方式二}\PY{err}{：}\PY{n}{通过闭包动态定义类来实现} \PY{n}{Mixin}
+        
+            \PY{k}{def} \PY{n+nf}{mixin}\PY{p}{(}\PY{n}{base}\PY{p}{,} \PY{n}{mixin}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                \PY{k}{class} \PY{n+nc}{MixinClass}\PY{p}{(}\PY{n}{base}\PY{p}{,} \PY{n}{mixin}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{pass}
+                \PY{n}{MixinClass}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{=} \PY{n}{name}
+                \PY{k}{return} \PY{n}{MixinClass}
+        
+            \PY{n}{MyClass} \PY{o}{=} \PY{n}{mixin}\PY{p}{(}\PY{n}{Base}\PY{p}{,} \PY{n}{FeatureMixin}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{方式三}\PY{err}{：}\PY{n}{使用type动态构造类来实现} \PY{n}{Mixin}
+        
+            \PY{n}{MyClass} \PY{o}{=} \PY{n+nb}{type}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{n}{Base}\PY{p}{,} \PY{n}{FeatureMixin}\PY{p}{)}\PY{p}{,} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+            
+        \PY{n}{方式四}\PY{err}{：}\PY{n}{更改\PYZus{}\PYZus{}bases\PYZus{}\PYZus{}来实现} \PY{n}{Mixin}\PY{o}{.} \PY{n}{只能} \PY{n}{mixin} \PY{n}{classic} \PY{k}{class}
+        
+            \PY{n+nc}{class} \PY{n}{Base}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+                \PY{k}{pass}
+        
+            \PY{k}{class} \PY{n+nc}{FeatureMixin}\PY{p}{:} \PY{c+c1}{\PYZsh{} not inherite from object  不从对象继承}
+                \PY{k}{pass}
+        
+            \PY{n}{Base}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}bases\PYZus{}\PYZus{}} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{FeatureMixin}\PY{p}{,}\PY{p}{)} \PY{c+c1}{\PYZsh{} then Base should have FeatureMixin}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} 选项做成配置项来达到动态加载的目的   https://www.jianshu.com/p/dae61c60f323}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}451}]:} \PY{n}{a} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 虽然元组是只读列表，不可以修改，但是可以通过 自身加上一个新元组的形式来改变自身}
+          \PY{n}{a} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{p}{)}
+          \PY{n}{a}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}451}]:} (1, 2, 3)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}457}]:} \PY{k}{class} \PY{n+nc}{A}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{k}{pass}
+          
+          \PY{n}{a} \PY{o}{=} \PY{n}{A}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{A}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}bases\PYZus{}\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(<class 'object'>,)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} 4\PYZhy{}12 with语句\PYZhy{}\PYZhy{}\PYZhy{}上下文管理器}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} try except finally}
+         \PY{k}{def} \PY{n+nf}{exe\PYZus{}try}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{try}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{code started}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+                 \PY{k}{raise} \PY{n+ne}{KeyError}                   \PY{c+c1}{\PYZsh{} 抛出异常之后，异常后面的语句就不继续执行了，而是跳转到except中进行处理}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{except} \PY{n+ne}{KeyError} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{key error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{k}{return} \PY{l+m+mi}{2}
+             \PY{k}{else}\PY{p}{:}  \PY{c+c1}{\PYZsh{} 没有抛出异常的时候，执行}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{no error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{k}{return} \PY{l+m+mi}{3}
+             \PY{k}{finally}\PY{p}{:}   \PY{c+c1}{\PYZsh{} 无论是否有异常，都执行}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{finally }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}         return 4                              \PYZsh{} Python中如果finally中有return语句就会使用finally中的return     }
+             
+         \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+             \PY{n}{result} \PY{o}{=} \PY{n}{exe\PYZus{}try}\PY{p}{(}\PY{p}{)}             
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}return 的处理过程：首先执行try语句，raise异常后就跳出try进入except，看见return 2 ，将2压入栈里面，之后执行finally的时候return4 也压入栈中，最后从栈顶取出值为4     }
+         \PY{c+c1}{\PYZsh{} 如果将finally中的return 4 注释掉，则取到的是2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+code started
+key error
+finally 
+2
+
+    \end{Verbatim}
+
+    \hypertarget{ux4e0aux4e0bux6587ux7ba1ux7406ux5668}{%
+\subsubsection{上下文管理器}\label{ux4e0aux4e0bux6587ux7ba1ux7406ux5668}}
+
+可以帮我们统一做一些资源管理的事
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} Python中的with语句就是为了简化上面的写法而诞生的}
+         \PY{c+c1}{\PYZsh{} 即上下文管理器}
+         \PY{c+c1}{\PYZsh{} 上下文管理器协议 \PYZhy{} \PYZhy{}\PYZhy{} 协议和魔法方法联系}
+         \PY{c+c1}{\PYZsh{} 魔法方法中有一个with上下文管理器，要求实现了\PYZus{}\PYZus{}enter\PYZus{}\PYZus{} 和 \PYZus{}\PYZus{}exit\PYZus{}\PYZus{}   （缺一不可）}
+         \PY{k}{class} \PY{n+nc}{Sample}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}enter\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} 做获取资源的事}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{首先调用\PYZus{}\PYZus{}enter\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{k}{return} \PY{n+nb+bp}{self}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}exit\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{exc\PYZus{}type}\PY{p}{,} \PY{n}{exc\PYZus{}val}\PY{p}{,} \PY{n}{exc\PYZus{}tb}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} 做一些释放资源的事}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exit}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{do\PYZus{}something}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{doing something}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 
+         \PY{k}{with} \PY{n}{Sample}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sample}\PY{p}{:}               \PY{c+c1}{\PYZsh{} 实现了上下文管理器协议，则该类的实例对象可以直接被with调用}
+             \PY{n}{sample}\PY{o}{.}\PY{n}{do\PYZus{}something}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} 整个过程，进入的时候会自动调用\PYZus{}\PYZus{}enter\PYZus{}\PYZus{}方法，退出是会自动调用\PYZus{}\PYZus{}exit\PYZus{}\PYZus{}方法}
+         \PY{c+c1}{\PYZsh{} 然后在with的内部可以使用实现了上下文管理器的类的方法，所以可以在\PYZus{}\PYZus{}enter\PYZus{}\PYZus{}中获得资源，在\PYZus{}\PYZus{}exit\PYZus{}\PYZus{}中释放资源}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+首先调用\_\_enter\_\_
+doing something
+exit
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} 4\PYZhy{}13 }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} 之前通过定义一个实现了\PYZus{}\PYZus{}enter\PYZus{}\PYZus{} 和 \PYZus{}\PYZus{}exit\PYZus{}\PYZus{}方法的类来构造一个上下文管理器}
+         \PY{c+c1}{\PYZsh{} 使用python提供的contextliab类可以更加简便的实现一个上下文管理器}
+         \PY{k+kn}{import} \PY{n+nn}{contextlib}
+         
+         \PY{n+nd}{@contextlib}\PY{o}{.}\PY{n}{contextmanager}     \PY{c+c1}{\PYZsh{} 提供一个函数装饰器，可以将一个被装饰的函数变成一个上下文管理器}
+         \PY{k}{def} \PY{n+nf}{file\PYZus{}open}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{file open}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}   \PY{c+c1}{\PYZsh{} 一些处理文件的动作      相当于之前的\PYZus{}\PYZus{}exter\PYZus{}\PYZus{}中的代码}
+             \PY{k}{yield} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{\PYZcb{}} \PY{c+c1}{\PYZsh{} 使用yield将该函数变成一个生成器}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{file end}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}                 \PY{c+c1}{\PYZsh{} 相当于\PYZus{}\PYZus{}exit\PYZus{}\PYZus{}中的代码}
+             
+         \PY{k}{with} \PY{n}{file\PYZus{}open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f\PYZus{}open}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f\PYZus{}open}\PY{p}{)}     \PY{c+c1}{\PYZsh{} 得到的是 yield 生成器返回的值}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{file\PYZus{}processing}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}         
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+file open
+\{1\}
+file\_processing
+file end
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nd}{@contextlib}\PY{o}{.}\PY{n}{contextmanager} \PY{n}{巧妙利用生成器的一些特性}\PY{err}{，}\PY{n}{将file\PYZus{}open函数和\PYZus{}\PYZus{}enter\PYZus{}\PYZus{}}\PY{err}{、}\PY{n}{\PYZus{}\PYZus{}exit\PYZus{}\PYZus{}魔法函数合起来}\PY{err}{，}\PY{n}{将里面的逻辑包装成一个装饰器}
+\end{Verbatim}
+
+
+    \hypertarget{ux88c5ux9970ux5668}{%
+\paragraph{装饰器}\label{ux88c5ux9970ux5668}}
+
+\hypertarget{ux88c5ux9970ux5668ux5206ux4e3aux51fdux6570ux88c5ux9970ux5668ux548cux7c7bux88c5ux9970ux5668}{%
+\subparagraph{装饰器分为函数装饰器和类装饰器}\label{ux88c5ux9970ux5668ux5206ux4e3aux51fdux6570ux88c5ux9970ux5668ux548cux7c7bux88c5ux9970ux5668}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}579}]:} \PY{c+c1}{\PYZsh{} 类装饰器  必须实现\PYZus{}\PYZus{}call\PYZus{}\PYZus{}方法}
+          \PY{k}{class} \PY{n+nc}{Decorator}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{f}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{func} \PY{o}{=} \PY{n}{f}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{我是初始化函数，只调动一次}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}                 \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}call\PYZus{}\PYZus{}()方法 使类的实例对象能够被当做函数一样调用，类装饰器的实现正是基于这一点的}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{调用了\PYZus{}\PYZus{}call\PYZus{}\PYZus{}方法}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{func}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+          \PY{n+nd}{@Decorator}
+          \PY{k}{def} \PY{n+nf}{func}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}            
+              \PY{k}{return} \PY{n}{x} \PY{o}{+} \PY{n}{y}
+          
+          \PY{n}{d} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}         \PY{c+c1}{\PYZsh{} func = Decorator(func)    实际上类似是   d= Decorator(func)(3, 4)}
+          \PY{c+c1}{\PYZsh{} d= Decorator(func)(3, 4)}
+          \PY{c+c1}{\PYZsh{} print(type(func))}
+          \PY{c+c1}{\PYZsh{} print(func)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{d}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} 解释器一遇到“@Decorator”语句时就会完成对func( )函数的装饰，即调用@Decorator类的\PYZus{}\PYZus{}init\PYZus{}\PYZus{}( )方法；当代码执行到func( )时，会执行装饰类@Decorator的\PYZus{}\PYZus{}call\PYZus{}\PYZus{}( )方法，实现对func( )函数的调用。}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+我是初始化函数，只调动一次
+调用了\_\_call\_\_方法
+8
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}548}]:} \PY{n}{func}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}    \PY{c+c1}{\PYZsh{} 再次调用被装饰的函数，没有再次打印\PYZus{}\PYZus{}init\PYZus{}\PYZus{}中的输出语句，可见\PYZus{}\PYZus{}init\PYZus{}\PYZus{}()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+调用了\_\_call\_\_方法
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}548}]:} 12
+\end{Verbatim}
+            
+    \hypertarget{ux7c7bux88c5ux9970ux5668ux542bux6709ux53c2ux6570ux65f6ux91cdux70b9}{%
+\paragraph{类装饰器含有参数时（重点）：}\label{ux7c7bux88c5ux9970ux5668ux542bux6709ux53c2ux6570ux65f6ux91cdux70b9}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  虽然``\texttt{@Decorator}''后面没有括号，也没有参数，但实际上它是有参数的，被装饰函数对象func()就是\texttt{@Decorator}的默认参数，函数对象被传入到装饰器类中的构造方法\texttt{\_\_init\_\_(\ )}中，并在\texttt{\_\_call\_\_(\ )}方法中调用。
+\item
+  当然我们也可以通过``\texttt{@Decorator(args)}''的语法像类装饰器传递其它参数，但是需要注意的是：一旦在\texttt{@Decorator}中的参数将被传入\texttt{\_\_init\_\_(\ )}方法，被装饰函数对象func(
+  )无法同时传入。
+\item
+  解决办法是：将被装饰函数对象传入\texttt{\_\_call\_\_(\ )}方法。下面的代码中在Ly类的\texttt{\_\_call\_\_(\ )}方法中定义了一个内部函数（闭包）接收被装饰对象函数中的参数，并实现对被装饰函数的调用（类似在将\texttt{\_\_call\_\_}实现为一个函数装饰器）。
+  关于闭包：https://blog.csdn.net/u013380694/article/details/90019571
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}549}]:} \PY{c+c1}{\PYZsh{} 类装饰器含有参数的情况}
+          \PY{k+kn}{import} \PY{n+nn}{time}
+          
+          \PY{k}{class} \PY{n+nc}{Ly}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{one\PYZus{}parm}\PY{p}{,} \PY{n}{two\PYZus{}parm}\PY{p}{,} \PY{n}{three\PYZus{}parm}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{one\PYZus{}parm} \PY{o}{=} \PY{n}{one\PYZus{}parm}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{two\PYZus{}parm} \PY{o}{=} \PY{n}{two\PYZus{}parm}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{three\PYZus{}parm} \PY{o}{=} \PY{n}{three\PYZus{}parm}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{我是初始化函数，只调动一次}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{fun}\PY{p}{)}\PY{p}{:}           \PY{c+c1}{\PYZsh{} 当类装饰器含有参数的时候，\PYZus{}\PYZus{}init\PYZus{}\PYZus{}就不能接受被装饰对象了 ，只负责接收类装饰器的参数，此时的被装饰对象由\PYZus{}\PYZus{}call\PYZus{}\PYZus{}接受，将\PYZus{}\PYZus{}call\PYZus{}\PYZus{}实现为一个函数装饰器}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我是\PYZus{}\PYZus{}call\PYZus{}\PYZus{}方法}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{性别为}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{one\PYZus{}parm} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{的}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{two\PYZus{}parm} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{岁的}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{three\PYZus{}parm}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{我是\PYZus{}\PYZus{}call\PYZus{}\PYZus{}中的输出}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{k}{def} \PY{n+nf}{info}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{fun}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{info}
+          
+          
+          \PY{n+nd}{@Ly}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{男}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{22}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{小王}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{def} \PY{n+nf}{show}\PY{p}{(}\PY{n}{name}\PY{p}{,} \PY{n}{age}\PY{p}{,} \PY{n}{sex}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{性别为}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{sex} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{的}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{age} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{岁的}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{name}\PY{p}{)}
+          
+          \PY{n}{show}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{小明}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{20}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{男}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n}{show}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{小微}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{20}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{女}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    \PY{c+c1}{\PYZsh{} 与 不含装饰器参数的类装饰器不同，这里多次使用被装饰的函数，只会调用\PYZus{}\PYZus{}call\PYZus{}\PYZus{}()的内部函数，而不会调用\PYZus{}\PYZus{}call\PYZus{}\PYZus{}()了 }
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{show}\PY{p}{)}\PY{p}{)}    \PY{c+c1}{\PYZsh{} 使用不含有参数的类装饰器装饰的函数的时候，函数的类型是类的实例\PYZlt{}class \PYZsq{}\PYZus{}\PYZus{}main\PYZus{}\PYZus{}.Decorator\PYZsq{}\PYZgt{}  而使用有参数的装饰器的时候，函数的类型就是函数类型   \PYZlt{}class \PYZsq{}function\PYZsq{}\PYZgt{} }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+我是初始化函数，只调动一次
+我是\_\_call\_\_方法
+性别为男的22岁的小王我是\_\_call\_\_中的输出
+性别为男的20岁的小明
+------------------------------
+性别为女的20岁的小微
+<class 'function'>
+
+    \end{Verbatim}
+
+    \hypertarget{ux7c7bux88c5ux9970ux5668ux53efux4ee5ux53d1ux73b0}{%
+\paragraph{类装饰器可以发现：}\label{ux7c7bux88c5ux9970ux5668ux53efux4ee5ux53d1ux73b0}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  只要有被类装饰器装饰的对象，类装饰器的\texttt{\_\_init\_\_}函数就会执行，\texttt{\_\_init\_\_}要接收被装饰的函数对象。
+\item
+  被类装饰器装饰的函数不论被调用多少次，\texttt{\_\_init\_\_}函数只会执行一次，并且它的执行是被装饰函数声明装饰时就自动执行的，不需要手动执行。
+\item
+  当被装饰函数存在参数时，从\texttt{\_\_call\_\_}函数传进参数（通过定义一个内部函数），被装饰对象函数被\texttt{\_\_call\_\_}接收，装饰器的参数从\texttt{\_\_init\_\_}传进。
+\end{enumerate}
+
+    \hypertarget{ux8bf4ux7c7bux88c5ux9970ux5668ux6bd4ux51fdux6570ux88c5ux9970ux5668ux66f4ux5f3aux5927ux6211ux60f3ux53efux80fdux8fd9ux53efux80fdux662fux7531ux7c7bux7684ux7279ux70b9ux51b3ux5b9aux7684ux9996ux5148ux7c7bux4e2dux53efux4ee5ux5b9eux73b0ux591aux4e2aux65b9ux6cd5ux8fd9ux4f7fux5f97ux7c7bux88c5ux9970ux5668ux529fux80fdux66f4ux4e30ux5bccux5176ux6b21ux7c7bux53efux4ee5ux88abux7ee7ux627fux8fd9ux4f7fux5f97ux7c7bux88c5ux9970ux5668ux66f4ux52a0ux7075ux6d3b}{%
+\paragraph{说类装饰器比函数装饰器更强大，我想可能这可能是由类的特点决定的，首先类中可以实现多个方法，这使得类装饰器功能更丰富；其次类可以被继承，这使得类装饰器更加灵活。}\label{ux8bf4ux7c7bux88c5ux9970ux5668ux6bd4ux51fdux6570ux88c5ux9970ux5668ux66f4ux5f3aux5927ux6211ux60f3ux53efux80fdux8fd9ux53efux80fdux662fux7531ux7c7bux7684ux7279ux70b9ux51b3ux5b9aux7684ux9996ux5148ux7c7bux4e2dux53efux4ee5ux5b9eux73b0ux591aux4e2aux65b9ux6cd5ux8fd9ux4f7fux5f97ux7c7bux88c5ux9970ux5668ux529fux80fdux66f4ux4e30ux5bccux5176ux6b21ux7c7bux53efux4ee5ux88abux7ee7ux627fux8fd9ux4f7fux5f97ux7c7bux88c5ux9970ux5668ux66f4ux52a0ux7075ux6d3b}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k}{def} \PY{n+nf}{decorator}\PY{p}{(}\PY{n}{f}\PY{p}{)}\PY{p}{:}  
+             \PY{k}{def} \PY{n+nf}{wrapper}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{+} \PY{n}{x} \PY{o}{+} \PY{n}{y}
+             \PY{k}{return} \PY{n}{wrapper}
+         
+         \PY{k}{class} \PY{n+nc}{C}\PY{p}{:}
+             \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{土}\PY{l+s+s2}{\PYZdq{}}
+             \PY{n+nd}{@decorator}
+             \PY{k}{def} \PY{n+nf}{method}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{x} \PY{o}{+} \PY{n}{y}
+         
+         \PY{n}{ins} \PY{o}{=} \PY{n}{C}\PY{p}{(}\PY{p}{)}
+         \PY{n}{myname} \PY{o}{=} \PY{n}{ins}\PY{o}{.}\PY{n}{method}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{行}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{孙}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}     \PY{c+c1}{\PYZsh{} 此时调用method相当于调用ins.wrapper(self, x, y)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{myname}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+土行孙
+
+    \end{Verbatim}
+
+    \hypertarget{ux5173ux4e8eux88abux88c5ux9970ux51fdux6570ux7684ux53c2ux6570ux95eeux9898}{%
+\subparagraph{关于被装饰函数的参数问题}\label{ux5173ux4e8eux88abux88c5ux9970ux51fdux6570ux7684ux53c2ux6570ux95eeux9898}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  装饰器本身接受被装饰的对象，装饰器返回的可调用对象接受被装饰对象所有的参数（是被装饰后的对象实际使用的参数列表的参数个数）
+\item
+  即实际调用时，传递给被装饰的函数的参数的个数可以不和定义时的参数个数一致，但是要和装饰器返回的可调用对象所需的参数个数一致
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}522}]:} \PY{k}{def} \PY{n+nf}{decorator}\PY{p}{(}\PY{n}{fun}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{wrapper}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{内函数id:}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{id(wrapper)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}   \PY{c+c1}{\PYZsh{}  虽然每次调用外函数的时候返回的内函数都不同，但是这里装饰器，一旦装饰完毕（即使用@进行装饰），实际只是调用了一次外函数，之后只要没有使用@再次装饰，使用的都是返回的同一个内函数}
+                  \PY{k}{return} \PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{k}{return} \PY{n}{wrapper}
+          
+          \PY{n+nd}{@decorator}
+          \PY{k}{def} \PY{n+nf}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}               
+              \PY{k}{return} \PY{l+m+mi}{1}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{func}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+内函数id:2026580405512
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}523}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{func}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+内函数id:2026580405512
+5
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{k}{def} \PY{n+nf}{decorator}\PY{p}{(}\PY{n}{fun}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我是装饰器，我被调用了}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{wrapper}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我在调用的被装饰的函数后才调用}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{k}{return} \PY{n}{wrapper}
+          
+          \PY{n+nd}{@decorator}
+          \PY{k}{def} \PY{n+nf}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}               \PY{c+c1}{\PYZsh{} 装饰器函数在被装饰函数定义好后立即执行 func = decorate(fun) = wrapper  注意：此时只是返回内部的wrapper函数对象，但是并没有调用该函数，所以该函数内部并未打印出来}
+              \PY{k}{return} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+我是装饰器，我被调用了
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} \PY{n}{func}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+我在调用的被装饰的函数后才调用
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}198}]:} 3
+\end{Verbatim}
+            
+    \hypertarget{ux88c5ux9970ux5668ux542bux6709ux53c2ux6570}{%
+\subparagraph{装饰器含有参数}\label{ux88c5ux9970ux5668ux542bux6709ux53c2ux6570}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}527}]:} \PY{c+c1}{\PYZsh{} 含有参数的装饰器，需要在函数的外面在此嵌套一层，用于接收装饰器传递过来的函数}
+          \PY{c+c1}{\PYZsh{} 此外，由于都是使用 *args,**kwargs 可变长参数的形式来接收参数，}
+          \PY{c+c1}{\PYZsh{} 所以为了不影响被装饰的函数传递的参数，装饰器最外层接收装饰器参数的函数，和最内层接收被装饰函数参数的函数的可变长参数的名字应该不同}
+          \PY{k}{def} \PY{n+nf}{get\PYZus{}parameter}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{} 工厂函数，用来接受@get\PYZus{}parameter(\PYZsq{}index.html/\PYZsq{})的\PYZsq{}index.html/\PYZsq{}}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{装饰器参数传递}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{log\PYZus{}time}\PY{p}{(}\PY{n}{func}\PY{p}{)}\PY{p}{:}        \PY{c+c1}{\PYZsh{} 装饰器一定要有接收被装饰对象的的参数}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{被装饰函数对象传递}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{def} \PY{n+nf}{make\PYZus{}decorater}\PY{p}{(}\PY{o}{*}\PY{n}{a}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{n}{args}\PY{p}{,}\PY{n}{kwargs}\PY{p}{)}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{现在开始装饰}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{n}{func}\PY{p}{(}\PY{p}{)}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{现在结束装饰}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{make\PYZus{}decorater}
+              \PY{k}{return} \PY{n}{log\PYZus{}time}
+           
+          \PY{n+nd}{@get\PYZus{}parameter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index.html/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{def} \PY{n+nf}{test}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{我是被装饰的函数}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} return num+1}
+          
+          \PY{n}{test}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}  \PY{c+c1}{\PYZsh{} test()=make\PYZus{}decorater()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+装饰器参数传递
+被装饰函数对象传递
+('index.html/',) \{\}
+(3,) \{'c': 4\}
+现在开始装饰
+我是被装饰的函数
+现在结束装饰
+
+    \end{Verbatim}
+
+    \hypertarget{ux591aux4e2aux88c5ux9970ux5668ux4feeux9970ux540cux4e00ux4e2aux51fdux6570-ux4e3bux8981ux770bux88abux88c5ux9970ux7684ux987aux5e8f-ux662fux6700ux5185ux5c42ux7684ux5148ux8c03ux7528}{%
+\subparagraph{多个装饰器修饰同一个函数 （主要看被装饰的顺序）
+是最内层的先调用}\label{ux591aux4e2aux88c5ux9970ux5668ux4feeux9970ux540cux4e00ux4e2aux51fdux6570-ux4e3bux8981ux770bux88abux88c5ux9970ux7684ux987aux5e8f-ux662fux6700ux5185ux5c42ux7684ux5148ux8c03ux7528}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{k}{def} \PY{n+nf}{log\PYZus{}time1}\PY{p}{(}\PY{n}{func}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1开始调用}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{make\PYZus{}decorater1}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:} 
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1现在开始装饰}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{test\PYZus{}func} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 实际在此处func是test，此时调用第二个装饰器， func = log\PYZus{}time2(func) = make\PYZus{}decorator2 即  test = log\PYZus{}time2(test) = make\PYZus{}decorator2}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1现在结束装饰}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+                  \PY{k}{return} \PY{n}{test\PYZus{}func} 
+              \PY{k}{return} \PY{n}{make\PYZus{}decorater1}
+           
+          \PY{k}{def} \PY{n+nf}{log\PYZus{}time2}\PY{p}{(}\PY{n}{func}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2开始调用}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{make\PYZus{}decorater2}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{} 接受调用语句的实参，在下面传递给被装饰函数（原函数）}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2现在开始装饰}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{test\PYZus{}func} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 如果在这里return，则下面的代码无法执行，所以引用并在下面返回}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2现在结束装饰}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{test\PYZus{}func}  \PY{c+c1}{\PYZsh{} 因为被装饰函数里有return，所以需要给调用语句（test（2））一个返回，又因为test\PYZus{}func = func(*args,**kwargs)已经调用了被装饰函数，这里就不用带（）调用了，区别在于运行顺序的不同。}
+              \PY{k}{return} \PY{n}{make\PYZus{}decorater2}
+           
+          \PY{n+nd}{@log\PYZus{}time1}
+          \PY{n+nd}{@log\PYZus{}time2}
+          \PY{k}{def} \PY{n+nf}{test}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{我是被装饰的函数}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}    
+              \PY{k}{return} \PY{n}{num}\PY{o}{+}\PY{l+m+mi}{1}
+           
+          \PY{n}{a} \PY{o}{=} \PY{n}{test}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)} \PY{c+c1}{\PYZsh{}  分析可知实际上 别装饰的函数test()只被调用了一次，所以返回值是3，而不是4}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2开始调用
+1开始调用
+1现在开始装饰
+2现在开始装饰
+我是被装饰的函数
+2现在结束装饰
+1现在结束装饰
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}267}]:} \PY{k}{def} \PY{n+nf}{log\PYZus{}time1}\PY{p}{(}\PY{n}{func}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{make\PYZus{}decorater1}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:} 
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1现在开始装饰}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{test\PYZus{}func} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)} 
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1现在结束装饰}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+          \PY{c+c1}{\PYZsh{}         return test\PYZus{}func }
+              \PY{k}{return} \PY{n}{make\PYZus{}decorater1}
+          
+           
+          \PY{n+nd}{@log\PYZus{}time1}
+          \PY{n+nd}{@log\PYZus{}time1}
+          \PY{k}{def} \PY{n+nf}{test}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{我是被装饰的函数}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{return} \PY{n}{num}\PY{o}{+}\PY{l+m+mi}{1}
+           
+          \PY{n}{a} \PY{o}{=} \PY{n}{test}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)} \PY{c+c1}{\PYZsh{} 同一个装饰器可以多次调用}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1现在开始装饰
+1现在开始装饰
+我是被装饰的函数
+1现在结束装饰
+1现在结束装饰
+None
+
+    \end{Verbatim}
+
+    \hypertarget{ux88c5ux9970ux5668ux603bux7ed3}{%
+\paragraph{装饰器总结}\label{ux88c5ux9970ux5668ux603bux7ed3}}
+
+python装饰器可分为两种：函数装饰器和类装饰器。函数装饰器可以用来装饰普通函数和类中的方法，类装饰器可以用来装饰普通函数，但是不能用来直接装饰类中的方法。
+
+装饰器高级：
+https://baijiahao.baidu.com/s?id=1627791616262685687\&wfr=spider\&for=pc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}301}]:}  \PY{c+c1}{\PYZsh{} \PYZus{}\PYZus{}call\PYZus{}\PYZus{}()方法使类实例对象能够被像函数一样调用}
+          \PY{k}{class} \PY{n+nc}{CallTest}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{a}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{a} \PY{o}{=} \PY{n}{a} 
+              
+          \PY{n}{ct} \PY{o}{=} \PY{n}{CallTest}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{ct}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        TypeError                                 Traceback (most recent call last)
+
+        <ipython-input-301-ecf37aa4ea6a> in <module>
+          5 
+          6 ct = CallTest(2)
+    ----> 7 ct()
+    
+
+        TypeError: 'CallTest' object is not callable
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}303}]:} \PY{k}{class} \PY{n+nc}{CallTest}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{a}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{a} \PY{o}{=} \PY{n}{a} 
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我是\PYZus{}\PYZus{}call\PYZus{}\PYZus{}方法，我使得类实例对象能够被调用}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{a}\PY{p}{)}
+                  
+          \PY{n}{ct} \PY{o}{=} \PY{n}{CallTest}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{ct}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+我是\_\_call\_\_方法，我使得类实例对象能够被调用
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{k}{class} \PY{n+nc}{A}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{a}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{pass}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{A}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{A}\PY{o}{.}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{A}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{a}\PY{p}{)}\PY{p}{)}     
+         \PY{c+c1}{\PYZsh{} 关于区分函数（function） 和 方法（method）关键看是否与实例绑定     详见： https://www.cnblogs.com/blackmatrix/p/6847313.html 该博文的标题错误了}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class '\_\_main\_\_.A'>
+<class 'function'>
+<class 'method'>
+
+    \end{Verbatim}
+
+    \hypertarget{ux7c7bux88c5ux9970ux5668ux88c5ux9970ux7c7bux7684ux65b9ux6cd5}{%
+\paragraph{类装饰器装饰类的方法}\label{ux7c7bux88c5ux9970ux5668ux88c5ux9970ux7c7bux7684ux65b9ux6cd5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}583}]:} \PY{c+c1}{\PYZsh{} 例1}
+          \PY{k}{class} \PY{n+nc}{log}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{func}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}func} \PY{o}{=} \PY{n}{func}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{正在执行函数：}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}func}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}         print(*args)}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}func}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{person}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{name}    
+                  
+              \PY{n+nd}{@log}
+              \PY{k}{def} \PY{n+nf}{sayHi}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hi, I am }\PY{l+s+si}{\PYZob{}self.name\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{n}{p} \PY{o}{=} \PY{n}{person}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{小明}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} print(p)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{sayHi}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{sayHi}\PY{p}{)}
+          \PY{n}{p}\PY{o}{.}\PY{n}{sayHi}\PY{p}{(}\PY{p}{)}               
+          \PY{c+c1}{\PYZsh{} 解释：（这是一种理解角度） 这里报错是sayHi()缺少位置参数self，但是sayHi()为person实例对象的方法，实例对象调用的时候，默认将实例对象自己传进该方法内，而不需要手动传递，}
+          \PY{c+c1}{\PYZsh{} 这里会出错是因为，当调用不含参数的类装饰器装饰函数的时候，被装饰的函数就变为了装饰类的实例对象了。 }
+          \PY{c+c1}{\PYZsh{} 为了使实例对象能够使用()的形式可调用，所以调用了\PYZus{}\PYZus{}call\PYZus{}\PYZus{}()方法，但是该方法中，self.\PYZus{}func(*args, **kwargs)，实际调用的是person类的sayHi()方法，由调用的形式可见，是没有传递person实例对象的self参数的，}
+          \PY{c+c1}{\PYZsh{} 但是在person类实例对象调用类方法sayHi()的时候是要传递给self其本身这个实例对象的，所此处要显式给出  应该是 p.sayHi(p) 这样的方式}
+          
+          \PY{c+c1}{\PYZsh{} 或者理解为，sayHi此时是属性了，p.sayHi加括号就调用了\PYZus{}\PYZus{}call\PYZus{}\PYZus{}方法，之后就执行\PYZus{}\PYZus{}call\PYZus{}\PYZus{}里面的self.\PYZus{}func(*args, **kwargs)，通过print检测*args传递了p对象给方法，但是由于self.\PYZus{}func(*args, **kwargs)}
+          \PY{c+c1}{\PYZsh{} 调用的self并不是person的实例对象，所以报错缺self    暂定}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class '\_\_main\_\_.log'>
+<\_\_main\_\_.log object at 0x000001D7D950E550>
+正在执行函数： sayHi
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        TypeError                                 Traceback (most recent call last)
+
+        <ipython-input-583-d9cbdb2d8717> in <module>
+         21 print(type(p.sayHi))
+         22 print(p.sayHi)
+    ---> 23 p.sayHi()
+         24 \# 解释：（这是一种理解角度） 这里报错是sayHi()缺少位置参数self，但是sayHi()为person实例对象的方法，实例对象调用的时候，默认将实例对象自己传进该方法内，而不需要手动传递，
+         25 \# 这里会出错是因为，当调用不含参数的类装饰器装饰函数的时候，被装饰的函数就变为了装饰类的实例对象了。
+    
+
+        <ipython-input-583-d9cbdb2d8717> in \_\_call\_\_(self, *args, **kwargs)
+          7         print("正在执行函数：", self.\_func.\_\_name\_\_)
+          8 \#         print(*args)
+    ----> 9         self.\_func(*args, **kwargs)
+         10 
+         11 class person(object):
+    
+
+        TypeError: sayHi() missing 1 required positional argument: 'self'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} 例2}
+        \PY{k}{class} \PY{n+nc}{log}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{func}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我比method中的print先执行}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}func} \PY{o}{=} \PY{n}{func}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{正在执行函数：}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}func}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}func}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} 定义了函数method，用于将属性转换为方法}
+        \PY{k}{def} \PY{n+nf}{method}\PY{p}{(}\PY{n}{call}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我是在执行完 log \PYZus{}\PYZus{}init\PYZus{}\PYZus{}后才执行的}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{k}{def} \PY{n+nf}{wrapper}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                \PY{n}{call}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+            \PY{k}{return} \PY{n}{wrapper}
+        
+        \PY{k}{class} \PY{n+nc}{person}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{name} 
+                
+            \PY{n+nd}{@method}   \PY{c+c1}{\PYZsh{} 首先log先调用，得到名字为sayHi的log类的实例化对象，然后将给实例化对象传递给method装饰，call接收sayHi该实例对象，返回内函数对象wrapper给sayHi，之后p.sayHi()就是p.wrapper()}
+            \PY{n+nd}{@log}      \PY{c+c1}{\PYZsh{} 然后在里面执行call()，就是调用log类的\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}
+            \PY{k}{def} \PY{n+nf}{sayHi}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}                \PY{c+c1}{\PYZsh{} sayHi = log(sayHi)   sayHi() = log(sayHi)() 缺少实例self的值，因为此时p.sayHi()不是自己内部调用，不会自动将自己p传递给self  p.log(sayHi)(p)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hi, I am }\PY{l+s+si}{\PYZob{}self.name\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}   \PY{c+c1}{\PYZsh{} 首先 sayHi = log(sayHi) 得到类log的实例化对象，之后method获得该实例化对象，返回wrapper，当真正调用的时候，就是调用了wrapper方法，即调用call方法，为其添上()，即为实例化对象添上()可调用，此时就是执行了\PYZus{}\PYZus{}call\PYZus{}\PYZus{}方法，经过method的装饰后，返回的是方法，}
+                
+        \PY{n}{p} \PY{o}{=} \PY{n}{person}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{小明}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} print(type(p.sayHi))   \PYZsh{} 为\PYZlt{}class \PYZsq{}method\PYZsq{}\PYZgt{} 说明为person的方法，与实例对象进行了绑定。}
+        \PY{c+c1}{\PYZsh{} print(p.sayHi)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{sayHi}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+我比method中的print先执行
+我是在执行完 log \_\_init\_\_后才执行的
+正在执行函数： sayHi
+Hi, I am 小明
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} 例3}
+        \PY{c+c1}{\PYZsh{} 上上例中因为使用类装饰器，sayHi实际变成了person类的类属性，且该属性是类log的实例化对象，即log类变成了描述器（所以该类要定义一个\PYZus{}\PYZus{}get\PYZus{}\PYZus{}方法）}
+        \PY{k}{class} \PY{n+nc}{log}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{func}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}func} \PY{o}{=} \PY{n}{func}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}get\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{instance}\PY{p}{,} \PY{n}{owner}\PY{p}{)}\PY{p}{:}                \PY{c+c1}{\PYZsh{} 将\PYZus{}\PYZus{}call\PYZus{}\PYZus{}改为\PYZus{}\PYZus{}get\PYZus{}\PYZus{}       关于\PYZus{}\PYZus{}get\PYZus{}\PYZus{}的： https://www.jianshu.com/p/7aaf23831168}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{正在执行函数：}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}func}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{指派类的实例对象：}\PY{l+s+si}{\PYZob{}instance\PYZcb{}}\PY{l+s+s2}{, 指派类对象：}\PY{l+s+si}{\PYZob{}owner\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}func}\PY{p}{(}\PY{n}{instance}\PY{p}{)}
+                
+        \PY{k}{class} \PY{n+nc}{person}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{name} 
+                
+            \PY{n+nd}{@log}                   \PY{c+c1}{\PYZsh{} 装饰后，sayHi为描述类log的实例化对象}
+            \PY{k}{def} \PY{n+nf}{sayHi}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}                     
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hi, I am }\PY{l+s+si}{\PYZob{}self.name\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                
+        \PY{n}{p} \PY{o}{=} \PY{n}{person}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{小明}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{sayHi}   \PY{c+c1}{\PYZsh{} 此时，log类就是一个描述类，sayHi为描述类log的实例化对象，使用p.sayHi会调用描述类的\PYZus{}\PYZus{}get\PYZus{}\PYZus{}方法               \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}    这实际上就是@property装饰器的实现原理，可以参照元类编程中对@property的描述}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{p}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 打印结果可见，和 指派类实例对象是同一个对象，则我们的理论是对的}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+正在执行函数： sayHi
+指派类的实例对象：<\_\_main\_\_.person object at 0x0000021F31B6BFD0>, 指派类对象：<class '\_\_main\_\_.person'>
+Hi, I am 小明
+<\_\_main\_\_.person object at 0x0000021F31B6BFD0>
+
+    \end{Verbatim}
+
+    \hypertarget{ux7c7bux88c5ux9970ux5668ux7ec6ux8282ux7a76ux6781ux603bux7ed3}{%
+\subparagraph{类装饰器细节究极总结}\label{ux7c7bux88c5ux9970ux5668ux7ec6ux8282ux7a76ux6781ux603bux7ed3}}
+
+通过上面的例子我们可以知道 1.
+使用类装饰器的时候，由于类装饰器的特殊性，被装饰的对象就变成了装饰器类的实例化对象了，所以调用被装饰的函数的时候，需要装饰器类有\texttt{\_\_call\_\_()}方法，因为，想要让类的实例对象可以像函数那样被调用，需要该类实现了\texttt{\_\_call\_\_()}方法
+2.
+由于以上的特性在装饰函数的时候没有问题，但是使用类装饰器去装饰一个类的方法的时候，就会有问题，因为被装饰的对象实际变成了装饰器类的实例化对象，方法名就是被装饰的类的一个属性了，属性值为装饰器类的实例化对象，此时想要能够正常使用，有两种方法，a.
+应该将装饰器类中的\texttt{\_\_call\_\_}方法变成\texttt{\_\_get\_\_}方法，即创建为描述符类，此时调用的时候，只要调用方法名即可，即调用的是属性
+b.
+实例对象想要能够像函数一样被调用，添加括号，要实现\texttt{\_\_call\_\_}方法，但是这种方式可能会丢失参数，参见例1，不建议使用，此时调用的函数，需要添加()，还要手动添加被装饰的实例对象。
+但是注意：\texttt{\_\_get\_\_}和\texttt{\_\_call\_\_}不能同时实现，因为一旦\texttt{\_\_get\_\_}，就会执行先执行\texttt{\_\_get\_\_}得到的返回值在进行\texttt{\_\_call\_\_}，这就要求\texttt{\_\_get\_\_}方法返回的一定要是一个可调用的对象。参见158例子。
+3.
+对于2的问题，还可以像例2那样，再调用一个函数装饰器，将属性转换为方法。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}563}]:} \PY{c+c1}{\PYZsh{} 补充：当使用含有参数的类装饰器来做这些事的时候就没有问题，从代码理解}
+          \PY{k}{class} \PY{n+nc}{log}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}a} \PY{o}{=} \PY{n}{a}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}b} \PY{o}{=} \PY{n}{b}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{fun}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{def} \PY{n+nf}{w}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{装饰函数}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{正在执行函数：}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fun}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+                      \PY{n}{fun}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{w}
+          
+          \PY{k}{class} \PY{n+nc}{person}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{name} 
+                  
+              \PY{n+nd}{@log}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{sayHi}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hi, I am }\PY{l+s+si}{\PYZob{}self.name\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+          \PY{n}{p} \PY{o}{=} \PY{n}{person}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{小明}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{sayHi}\PY{p}{)}\PY{p}{)}                   \PY{c+c1}{\PYZsh{} 由打印结果可知，此时经过含有参数的类装饰器的装饰，返回的是一个函数，此处通过实例对象进行调用，返回的是method方法，}
+          \PY{n}{p}\PY{o}{.}\PY{n}{sayHi}\PY{p}{(}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_init\_\_
+<class 'method'>
+装饰函数
+正在执行函数： sayHi
+Hi, I am 小明
+
+    \end{Verbatim}
+造成这种情况的根由是因为 含有参数的类装饰器装饰后得到的是__call__中返回的函数对象（就相当于整个__call__方法是一个函数装饰器）
+                       而不含参数的类装饰器装饰后得到的是一个该装饰器类的实例化对象，实例名为别装饰的函数名
+                       这也解释了例2 通过定义一个函数装饰器，将原本的属性变成了函数，之后便能通过p.sayHi()的方式调用了
+    \hypertarget{ux4f7fux7528ux7c7bux88c5ux9970ux5668ux88c5ux9970ux7c7b}{%
+\paragraph{使用类装饰器装饰类}\label{ux4f7fux7528ux7c7bux88c5ux9970ux5668ux88c5ux9970ux7c7b}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}550}]:} \PY{c+c1}{\PYZsh{} 使用类装饰器装饰类}
+          \PY{k}{class} \PY{n+nc}{cellphone\PYZus{}NewClass}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n+nb+bp}{cls}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{装饰类\PYZus{}\PYZus{}init\PYZus{}\PYZus{}被调用}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}cls} \PY{o}{=} \PY{n+nb+bp}{cls}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{a}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{classobject} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}cls}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+                  \PY{n}{newstr} \PY{o}{=} \PY{n}{classobject}\PY{o}{.}\PY{n}{fun}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我是今年最新的VR手机！！}\PY{l+s+s2}{\PYZdq{}}
+                  \PY{k}{return} \PY{n}{newstr}
+              
+          \PY{n+nd}{@cellphone\PYZus{}NewClass}                              \PY{c+c1}{\PYZsh{} 使用不含装饰器参数的类装饰器装饰的时候都是将装饰对象变成装饰类的实例对象，而使用类装饰装饰类没有类装饰类的方法传递self的弊端，所以直接调用即可。}
+          \PY{k}{class} \PY{n+nc}{cellphone\PYZus{}SourceClass}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{a}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{value} \PY{o}{=} \PY{n}{a}
+                  
+              \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{value}
+              
+          \PY{n}{a} \PY{o}{=} \PY{n}{cellphone\PYZus{}SourceClass}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{我是原厂手机！！}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{cellphone\PYZus{}SourceClass}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+装饰类\_\_init\_\_被调用
+<class '\_\_main\_\_.cellphone\_NewClass'>
+我是原厂手机！！我是今年最新的VR手机！！
+
+    \end{Verbatim}
+
+    \hypertarget{ux5173ux4e8eux88c5ux9970ux5668ux8c03ux7528ux5373ux4f7fux7528ux8c03ux7528ux7684ux65f6ux5019ux65f6ux5185ux90e8ux7684ux89e6ux53d1ux987aux5e8f}{%
+\paragraph{关于装饰器调用（即使用@调用的时候）时内部的触发顺序}\label{ux5173ux4e8eux88c5ux9970ux5668ux8c03ux7528ux5373ux4f7fux7528ux8c03ux7528ux7684ux65f6ux5019ux65f6ux5185ux90e8ux7684ux89e6ux53d1ux987aux5e8f}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  函数装饰器：
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    函数装饰器在被调动时（即用来装饰的时候），直接运行装饰函数，返回内部的函数对象，因为是对象，没有被调用，所以内部实现并没有执行。装饰一个函数时，后面再次调用该被装饰了的函数，所用的内部函数是同一个。即装饰函数外函数只调用了一次，（这也印证了在闭包中，每次调用外部函数，返回的内部函数都是不同的，这里相同，说明使用的是同一个内部函数）
+  \item
+    含有参数的函数装饰器，也是一次装饰，先执行最外两层的函数，最内部函数作为装饰器的返回值，之后调用的都是该返回函数。
+    （说明含有参数的装饰器会在调用的时候，自动执行最外两层的函数，即内部实现要求他一次性执行了最外两层函数）
+  \end{enumerate}
+\item
+  类装饰器：
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    不含装饰器参数的类装饰器：在调用的时候，首先调用\texttt{\_\_init\_\_}，负责接收被装饰的函数对象，只执行一次，得到名字为被装饰的函数的名字的装饰器类实例化对象，之后使用的时候会调用\texttt{\_\_call\_\_}方法，\texttt{\_\_call\_\_}方法负责接收被装饰函数的参数
+  \item
+    含有装饰器参数的类装饰器：与不含参数的类装饰器相比，在进行装饰的时候，首先调用\texttt{\_\_init\_\_}，负责接收类装饰器的参数，之后直接调用\texttt{\_\_call\_\_}方法，负责接收被装饰的函数对象，且调用并返回\texttt{\_\_call\_\_}中定义的内函数，该内函数作为之后的对象被使用，接收被装饰的函数对象的参数
+    注意：使用不含有参数的类装饰器装饰的函数的时候，被装饰的函数的类型是类的实例对象
+    \textless{}class `\textbf{main}.Decorator'\textgreater{}
+    所以\_\_call\_\_中一般是self.fun()直接执行（说的通，被装饰函数加上括号就是调用，然后在\_\_call\_\_中直接执行，得到返回值）
+    而使用有参数的类装饰器的时候，使用的是将\_\_call\_\_做函数装饰器处理，得到的是内函数对象，所以被装饰的函数的类型就是函数类型
+    \textless{}class `function'\textgreater{} 所以\_\_call\_\_
+    中是返回内函数对象，然后在内函数中执行完被装饰的函数，一定是要执行完的，参数也传递给被装饰的函数了
+  \end{enumerate}
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}543}]:} \PY{c+c1}{\PYZsh{} 关于闭包的内外函数的关系 }
+          \PY{c+c1}{\PYZsh{} 一般情况下，如果一个函数结束，函数的内部所有东西都会释放掉，还给内存，}
+          \PY{c+c1}{\PYZsh{} 局部变量都会消失。但是闭包是一种特殊情况，如果外函数在结束的时候发现有自己的临时变量将来会在内部函数中用到，就把这个临时变量绑定给了内部函数，然后自己再结束。}
+          \PY{k}{def} \PY{n+nf}{outer}\PY{p}{(} \PY{n}{a} \PY{p}{)}\PY{p}{:}
+              \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{10}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{id}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} inner是内函数}
+              \PY{k}{def} \PY{n+nf}{inner}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} 在内函数中 用到了外函数的临时变量}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{a} \PY{o}{+} \PY{n}{b}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{id}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} 外函数的返回值是内函数的引用}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{内函数id:}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{id(inner)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}     \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} 我们每次调用外函数，都返回不同的实例对象的引用，他们的功能是一样的，但是它们实际上不是同一个函数对象。}
+              \PY{k}{return} \PY{n}{inner}
+           
+          \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} 在这里我们调用外函数传入参数5}
+              \PY{c+c1}{\PYZsh{}此时外函数两个临时变量 a是5 b是10 ，并创建了内函数，然后把内函数的引用返回存给了demo}
+              \PY{c+c1}{\PYZsh{} 外函数结束的时候发现内部函数将会用到自己的临时变量，这两个临时变量就不会释放，会绑定给这个内部函数}
+              \PY{n}{demo} \PY{o}{=} \PY{n}{outer}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+              \PY{n}{demo}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} 15}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{30}\PY{p}{)}
+              \PY{n}{demo2} \PY{o}{=} \PY{n}{outer}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
+              \PY{n}{demo2}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+140715043771344 140715043771504
+内函数id:2026580376976
+15
+140715043771344 140715043771504
+------------------------------
+140715043771408 140715043771504
+内函数id:2026580449072
+17
+140715043771408 140715043771504
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}539}]:} \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{最外部}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{outer}\PY{p}{(} \PY{o}{*}\PY{n}{args} \PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{中间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{def} \PY{n+nf}{inner}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{内函数id:}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{id(inner)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+                  \PY{k}{return} \PY{n}{inner}
+              \PY{k}{return} \PY{n}{outer}
+           
+          \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+              \PY{n}{fun}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+最外部
+中间
+内函数id:2026580376296
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{有结果可知}
+        \PY{l+m+mf}{1.} \PY{n}{多次调用外部函数}\PY{err}{，}\PY{n}{每次返回的内部函数都不是同一个}
+        \PY{l+m+mf}{2.} \PY{n}{在一次调用中}\PY{err}{，}\PY{n}{外部函数的的临时变量会在内部函数中用到}\PY{err}{，}\PY{n}{就把这个临时变量绑定给了内部函数}\PY{err}{，}\PY{n}{然后自己再结束}\PY{err}{，}\PY{n}{所以外部函数和内部函数的用的变量是同一个}\PY{err}{。}\PY{err}{（}\PY{n}{但是只限使用临时变量}\PY{err}{，}\PY{n}{而不能修改}\PY{err}{！}\PY{err}{！}\PY{err}{！}\PY{err}{）}
+        \PY{l+m+mf}{3.} \PY{n}{多次调用时}\PY{err}{，}\PY{n}{使用的是同一个外函数}\PY{err}{，}\PY{n}{所以多次使用是}\PY{err}{，}\PY{n}{都是用到的外函数中的定义的变量是同一个}
+\end{Verbatim}
+
+
+    \hypertarget{ux5728ux95edux5305ux4e2dux901aux8fc7ux4f7fux7528-nonlocal-ux5173ux952eux5b57ux6765ux4feeux6539ux5916ux51fdux6570ux7684ux53d8ux91cf}{%
+\paragraph{\texorpdfstring{在闭包中通过使用 \texttt{nonlocal}
+关键字来修改外函数的变量}{在闭包中通过使用 nonlocal 关键字来修改外函数的变量}}\label{ux5728ux95edux5305ux4e2dux901aux8fc7ux4f7fux7528-nonlocal-ux5173ux952eux5b57ux6765ux4feeux6539ux5916ux51fdux6570ux7684ux53d8ux91cf}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+m+mi}{2} \PY{n}{闭包中内函数修改外函数局部变量}
+        　　\PY{n}{在闭包内函数中}\PY{err}{，}\PY{n}{可以随意使用外函数绑定来的临时变量}\PY{err}{，}\PY{n}{但是如果想修改外函数临时变量数值的时候发现出问题了}\PY{err}{！}
+        
+        　　\PY{n}{在基本的python语法当中}\PY{err}{，}\PY{n}{一个函数可以随意读取全局数据}\PY{err}{，}\PY{n}{但是要修改全局数据的时候有两种方法}\PY{p}{:}
+        
+               \PY{l+m+mi}{1} \PY{k}{global} \PY{n}{声明全局变量}
+        
+               \PY{l+m+mi}{2} \PY{n}{全局变量是可变类型数据的时候可以修改}
+        
+        　　\PY{n}{在闭包内函数也是类似的情况}\PY{err}{。}\PY{n}{在内函数中想修改闭包变量}\PY{err}{（}\PY{n}{外函数绑定给内函数的局部变量}\PY{err}{）}\PY{n}{的时候}\PY{err}{：}
+        
+        　　\PY{l+m+mi}{1} \PY{n}{在python3中}\PY{err}{，}\PY{n}{可以用nonlocal} \PY{n}{关键字声明} \PY{n}{一个变量}\PY{err}{，} \PY{n}{表示这个变量不是局部变量空间的变量}\PY{err}{，}\PY{n}{需要向上一层变量空间找这个变量}\PY{err}{。}
+        
+        　　\PY{l+m+mi}{2} \PY{n}{在python2中}\PY{err}{，}\PY{n}{没有nonlocal这个关键字}\PY{err}{，}\PY{n}{可以把闭包变量改成可变类型数据进行修改}\PY{err}{，}\PY{n}{比如列表}\PY{err}{。}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}482}]:} \PY{c+c1}{\PYZsh{} 关于 Python处理内部变量调用的时候，一旦直接对没有定义过的变量进行操作 处理的验证：}
+          \PY{k}{def} \PY{n+nf}{ff}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{d}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}     \PY{c+c1}{\PYZsh{}  果然。Python处理内部变量调用的时候，一旦直接对没有定义过的变量进行操作，就会显示  UnboundLocalError: local variable \PYZsq{}d\PYZsq{} referenced before assignment 越界调用，局部调用全局变量处理。 }
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{d}\PY{p}{)}    \PY{c+c1}{\PYZsh{}  而如果没有 d+=1 ，直接print(d)的话，则是变量没有定义   NameError: name \PYZsq{}d\PYZsq{} is not defined}
+          \PY{n}{ff}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        UnboundLocalError                         Traceback (most recent call last)
+
+        <ipython-input-482-aa1c5b1df3f2> in <module>
+          3     d+=1     \#  果然。Python处理内部变量调用的时候，一旦直接对没有定义过的变量进行操作，就会显示  UnboundLocalError: local variable 'd' referenced before assignment 越界调用，局部调用全局变量处理。
+          4     print(d)    \#  而如果没有 d+=1 ，直接print(d)的话，则是变量没有定义   NameError: name 'd' is not defined
+    ----> 5 ff()
+    
+
+        <ipython-input-482-aa1c5b1df3f2> in ff()
+          1 \# 关于 Python处理内部变量调用的时候，一旦直接对没有定义过的变量进行操作 处理的验证：
+          2 def ff():
+    ----> 3     d+=1     \#  果然。Python处理内部变量调用的时候，一旦直接对没有定义过的变量进行操作，就会显示  UnboundLocalError: local variable 'd' referenced before assignment 越界调用，局部调用全局变量处理。
+          4     print(d)    \#  而如果没有 d+=1 ，直接print(d)的话，则是变量没有定义   NameError: name 'd' is not defined
+          5 ff()
+    
+
+        UnboundLocalError: local variable 'd' referenced before assignment
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}158}]:} \PY{c+c1}{\PYZsh{} 描述符 \PYZus{}\PYZus{}get\PYZus{}\PYZus{}()}
+          \PY{k}{class} \PY{n+nc}{MyDecriptor}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hahah}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+              \PY{k}{def} \PY{n+nf}{say}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fa}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}get\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{instance}\PY{p}{,} \PY{n}{owner}\PY{p}{)}\PY{p}{:}
+          \PY{c+c1}{\PYZsh{}         print(\PYZdq{}getting..\PYZdq{}, self, instance, owner)}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{say}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}set\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{instance}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{setting..}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{instance}\PY{p}{,} \PY{n}{value}\PY{p}{)}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}delete\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{instance}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delete..}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{instance}\PY{p}{)}
+                  
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fsd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  
+          \PY{k}{class} \PY{n+nc}{Test}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x} \PY{o}{=} \PY{n}{MyDecriptor}\PY{p}{(}\PY{p}{)}
+              
+          \PY{n}{test} \PY{o}{=} \PY{n}{Test}\PY{p}{(}\PY{p}{)}
+          \PY{n}{test}\PY{o}{.}\PY{n}{x}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+hahah
+fa
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}170}]:} \PY{c+c1}{\PYZsh{} 关于Python的函数和方法    https://www.cnblogs.com/blackmatrix/p/6847313.html  作者标题有误}
+          \PY{k}{class} \PY{n+nc}{Aaaa}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{a}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{pass}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{Aaaa}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{Aaaa}\PY{o}{.}\PY{n}{a}\PY{p}{)}\PY{p}{)}   \PY{c+c1}{\PYZsh{} 关于函数和方法的区别，在于是否与一个实例对象绑定}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'method'>
+<class 'function'>
+
+    \end{Verbatim}
+
+    \hypertarget{ux591aux4e2aux88c5ux9970ux5668ux7684ux8c03ux7528ux987aux5e8f}{%
+\paragraph{多个装饰器的调用顺序}\label{ux591aux4e2aux88c5ux9970ux5668ux7684ux8c03ux7528ux987aux5e8f}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{k}{def} \PY{n+nf}{one}\PY{p}{(}\PY{n}{func}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}1\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{two}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}2\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{func}\PY{p}{(}\PY{p}{)}
+              \PY{k}{return} \PY{n}{two}
+          
+          \PY{k}{def} \PY{n+nf}{a}\PY{p}{(}\PY{n}{func}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}a\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{b}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}b\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}             \PY{c+c1}{\PYZsh{} demo = a(demo)}
+                  \PY{n}{func}\PY{p}{(}\PY{p}{)}
+              \PY{k}{return} \PY{n}{b}
+          
+          \PY{n+nd}{@one}
+          \PY{n+nd}{@a}
+          \PY{k}{def} \PY{n+nf}{demo}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}3\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{demo}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+----a----
+----1----
+----2----
+----b----
+----3----
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}187}]:} \PY{k}{def} \PY{n+nf}{decorator\PYZus{}a}\PY{p}{(}\PY{n}{func}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Get in decorator\PYZus{}a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{inner\PYZus{}a}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Get in inner\PYZus{}a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{func}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}   
+              \PY{k}{return} \PY{n}{inner\PYZus{}a}
+          
+          \PY{k}{def} \PY{n+nf}{decorator\PYZus{}b}\PY{p}{(}\PY{n}{func}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Get in decorator\PYZus{}b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{def} \PY{n+nf}{inner\PYZus{}b}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Get in inner\PYZus{}b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{func}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{k}{return} \PY{n}{inner\PYZus{}b}
+          
+          \PY{n+nd}{@decorator\PYZus{}b}
+          \PY{n+nd}{@decorator\PYZus{}a}
+          \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Get in f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{return} \PY{n}{x} \PY{o}{*} \PY{l+m+mi}{2}
+          
+          \PY{n}{f}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Get in decorator\_a
+Get in decorator\_b
+Get in inner\_b
+Get in inner\_a
+Get in f
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}187}]:} 2
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
