@@ -8,4 +8,10 @@
 
 **推荐git clone到本地，使用本地的Jupyter Lab，或者使用[nbviewer](https://nbviewer.jupyter.org/)进行查看，以获得更好的阅读体验**
 
+### 本地 Jupyter Lab 安装
+可通过 pip 直接安装：
+  + `pip3 install jupyterlab` 完成安装。
+  + 在python_self_study目录内，运行 jupyter-lab 命令即可。
+
+
 以上是一些本人自学感悟，出现错误在所难免，欢迎指正，谢谢！
